@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\Campeonato;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class TemporadasSeeder extends Seeder
 {
@@ -17,7 +17,7 @@ class TemporadasSeeder extends Seeder
         $campeonato->nome = 'Campeonato Brasileiro';
         $campeonato->save();
         
-        DB::table('temporadas')->insert(
+        DB::table('temporadas')->insert([
             ['idCampeonato' => $campeonato->id, 'temporada' => '2020 - 2021', 'divisao' => 'Série A', 'sexo' => 'm', 'apelido' => 'Brasileirão', 'url' => 'https://chancedegol.com.br/br20.htm', 'status' => 1],
             ['idCampeonato' => $campeonato->id, 'temporada' => '2019', 'divisao' => 'Série A', 'sexo' => 'm', 'apelido' => 'Brasileirão', 'url' => 'https://chancedegol.com.br/br19.htm', 'status' => 0],
             ['idCampeonato' => $campeonato->id, 'temporada' => '2018', 'divisao' => 'Série A', 'sexo' => 'm', 'apelido' => 'Brasileirão', 'url' => 'https://chancedegol.com.br/br18.htm', 'status' => 0],
@@ -41,6 +41,6 @@ class TemporadasSeeder extends Seeder
             ['idCampeonato' => $campeonato->id, 'temporada' => '2000', 'divisao' => 'Série A', 'sexo' => 'm', 'apelido' => 'Copa João Havelange', 'url' => 'https://chancedegol.com.br/jh00.htm', 'status' => 0],
             ['idCampeonato' => $campeonato->id, 'temporada' => '1999', 'divisao' => 'Série A', 'sexo' => 'm', 'apelido' => 'Brasileirão', 'url' => 'https://chancedegol.com.br/br99a.htm', 'status' => 0],
             ['idCampeonato' => $campeonato->id, 'temporada' => '1998', 'divisao' => 'Série A', 'sexo' => 'm', 'apelido' => 'Brasileirão', 'url' => 'https://chancedegol.com.br/br98a.htm', 'status' => 0],
-        );
+        ]);
     }
 }
