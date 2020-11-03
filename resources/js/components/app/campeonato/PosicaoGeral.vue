@@ -58,18 +58,13 @@
             </div>
         </div>
 	</div>
-    
+
 </template>
 
 <script>
     import axios from 'axios';
-    import PosicaoDinamica from './PosicaoDinamica';
 
     export default {
-        components: {
-			'posicao-dinamica': PosicaoDinamica
-        },
-        
 		data() {
             return {
                 campeonato: null,
@@ -77,7 +72,8 @@
                 maxPartidas: 0,
                 posicaoInicial: 1,
                 x: 1,
-                posicaoDinamica: false
+                posicaoDinamica: false,
+                modal: false
             }
         },
 
@@ -87,6 +83,16 @@
                 this.maxPartidas = response.data.max_partidas;
                 this.campeonato = response.data.campeonato;
             });
+        },
+
+        methods: {
+            openModal: function() {
+                this.modal = true;
+            },
+
+            closeModal: function() {
+                this.modal = false;
+            }
         }
     }
 </script>

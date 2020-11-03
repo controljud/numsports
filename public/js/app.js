@@ -1971,20 +1971,16 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _campeonato_PosicaoGeral_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./campeonato/PosicaoGeral.vue */ "./resources/js/components/app/campeonato/PosicaoGeral.vue");
-/* harmony import */ var _campeonato_PosicaoDinamica_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./campeonato/PosicaoDinamica.vue */ "./resources/js/components/app/campeonato/PosicaoDinamica.vue");
 //
 //
 //
 //
 //
 //
-//
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    'posicao-geral': _campeonato_PosicaoGeral_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    'posicao-dinamica': _campeonato_PosicaoDinamica_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    'posicao-geral': _campeonato_PosicaoGeral_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
 
@@ -2116,6 +2112,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2124,7 +2121,9 @@ __webpack_require__.r(__webpack_exports__);
       posicoes: [],
       maxPartidas: 0,
       posicaoInicial: 1,
-      x: 1
+      x: 1,
+      posicaoDinamica: false,
+      modal: false
     };
   },
   created: function created() {
@@ -2135,6 +2134,14 @@ __webpack_require__.r(__webpack_exports__);
       _this.maxPartidas = response.data.max_partidas;
       _this.campeonato = response.data.campeonato;
     });
+  },
+  methods: {
+    openModal: function openModal() {
+      this.modal = true;
+    },
+    closeModal: function closeModal() {
+      this.modal = false;
+    }
   }
 });
 
@@ -37803,11 +37810,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [_c("posicao-geral"), _vm._v(" "), _c("posicao-dinamica")],
-    1
-  )
+  return _c("div", [_c("posicao-geral")], 1)
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -38035,7 +38038,7 @@ var render = function() {
               _c(
                 "tbody",
                 _vm._l(_vm.posicoes, function(posicao) {
-                  return _c("tr", [
+                  return _c("tr", { key: posicao }, [
                     _c("td", { staticClass: "center" }, [
                       _vm._v(_vm._s(posicao.posicao))
                     ]),
@@ -38082,7 +38085,7 @@ var render = function() {
                       "td",
                       { staticClass: "center" },
                       _vm._l(posicao.resultados, function(resultado) {
-                        return _c("span", [
+                        return _c("span", { key: resultado }, [
                           resultado.resultado == 3
                             ? _c("img", {
                                 staticClass: "imgResult",
@@ -50734,38 +50737,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TopMenu_vue_vue_type_template_id_4ad4e64b___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
-
-/***/ }),
-
-/***/ "./resources/js/components/app/campeonato/PosicaoDinamica.vue":
-/*!********************************************************************!*\
-  !*** ./resources/js/components/app/campeonato/PosicaoDinamica.vue ***!
-  \********************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-var render, staticRenderFns
-var script = {}
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
-  script,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-component.options.__file = "resources/js/components/app/campeonato/PosicaoDinamica.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
