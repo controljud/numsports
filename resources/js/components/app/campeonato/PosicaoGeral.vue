@@ -7,64 +7,42 @@
                 <p>Classificação</p>
             </div>
         </div>
-		<div class="row" v-if="posicoes.length > 0">
+        
+        <div class="row" v-if="posicoes.length > 0" style="margin-botton: 10px;">
             <div class="col-md-12">
-                <table class="table tblClassificacao">
-                    <thead>
-                        <tr>
-                            <th class='center'>Posição</th>
-                            <th class='center'>Time</th>
-                            <th class='center'>Pontos</th>
-                            <th class='center'>Jogos</th>
-                            <th class='center'>Vitórias</th>
-                            <th class='center'>Empates</th>
-                            <th class='center'>Derrotas</th>
-                            <th class='center'>GF</th>
-                            <th class='center'>GS</th>
-                            <th class='center'>Saldo</th>
-                            <th class='center'>Últimas</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="posicao of posicoes" v-bind:key="posicao">
-                            <td class='center'>{{posicao.posicao}}</td>
-                            <td><a href="javascript:void(0)">{{posicao.nomeTime}}</a></td>
-                            <td class='center'>{{posicao.pontos}}</td>
-                            <td class='center'>{{posicao.numPartida}}</td>
-                            <td class='center'>{{posicao.vitorias}}</td>
-                            <td class='center'>{{posicao.empates}}</td>
-                            <td class='center'>{{posicao.derrotas}}</td>
-                            <td class='center'>{{posicao.golsFeitos}}</td>
-                            <td class='center'>{{posicao.golsSofridos}}</td>
-                            <td class='center'>{{posicao.saldo}}</td>
-                            <td class='center'>
-                                <span v-for="resultado of posicao.resultados" v-bind:key="resultado">
-                                    <img v-if="resultado.resultado == 3" src="images/check.png" class="imgResult"/>
-                                    <img v-if="resultado.resultado == 1" src="images/minus.png" class="imgResult"/>
-                                    <img v-if="resultado.resultado == 0" src="images/cancel.png" class="imgResult"/>
-                                </span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="row" v-if="posicoes.length > 0">
-            <div class="col-md-12">
-                <a href="javascript:void(0);" class="btn btn-md btn-success">
+                <a href="javascript:void(0);" class="btn btn-md btn-light" v-show="showTabela" v-on:click="openGrafico">
                     <i class="fa fa-line-chart" aria-hidden="true"></i>
                     Rodada a rodada
                 </a>
+                <a href="javascript:void(0);" class="btn btn-md btn-light" v-show="showGrafico" v-on:click="openTabela">
+                    <i class="fa fa-list-ol" aria-hidden="true"></i>
+                    Posião Geral
+                </a>
+            </div>
+        </div>
+
+		<div class="row" v-if="posicoes.length > 0" style="margin-botton">
+            <div class="col-md-12">
+                <line-chart v-if="showGrafico"/>
+                <tabela
+                    v-show="showTabela"
+                    v-bind:posicoes="posicoes"
+                ></tabela>
             </div>
         </div>
 	</div>
-
 </template>
 
 <script>
-    import axios from 'axios';
+    import Tabela from './Tabela'
+    import LineChart from './../../comuns/charts/LineChart'
 
     export default {
+        components: {
+            Tabela,
+            LineChart
+        },
+
 		data() {
             return {
                 campeonato: null,
@@ -73,25 +51,32 @@
                 posicaoInicial: 1,
                 x: 1,
                 posicaoDinamica: false,
-                modal: false
+                showTabela: true,
+                showGrafico: false
             }
         },
 
         created() {
-            axios.get('/numsports/public/api/v1/campeonato/posicao/geral').then(response => {
-                this.posicoes = response.data.posicao_geral;
-                this.maxPartidas = response.data.max_partidas;
-                this.campeonato = response.data.campeonato;
-            });
+            this.atualiarDados();
         },
 
         methods: {
-            openModal: function() {
-                this.modal = true;
+            atualiarDados: function() {
+                axios.get('/numsports/public/api/v1/campeonato/posicao/geral').then(response => {
+                    this.posicoes = response.data.posicao_geral;
+                    this.maxPartidas = response.data.max_partidas;
+                    this.campeonato = response.data.campeonato;
+                });
             },
 
-            closeModal: function() {
-                this.modal = false;
+            openTabela: function() {
+                this.showTabela = true;
+                this.showGrafico = false;
+            },
+
+            openGrafico: function() {
+                this.showTabela = false;
+                this.showGrafico = true;
             }
         }
     }
