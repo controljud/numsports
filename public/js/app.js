@@ -2081,6 +2081,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2090,12 +2094,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      graphLabels: null,
+      graphDataset: null,
       campeonato: null,
       posicoes: [],
       maxPartidas: 0,
-      posicaoInicial: 1,
-      x: 1,
-      posicaoDinamica: false,
       showTabela: true,
       showGrafico: false
     };
@@ -2111,6 +2114,10 @@ __webpack_require__.r(__webpack_exports__);
         _this.posicoes = response.data.posicao_geral;
         _this.maxPartidas = response.data.max_partidas;
         _this.campeonato = response.data.campeonato;
+      });
+      axios.get('/numsports/public/api/v1/campeonato/posicao/dinamica').then(function (response) {
+        _this.graphLabels = response.data.labels;
+        _this.graphDataset = response.data.dataset;
       });
     },
     openTabela: function openTabela() {
@@ -2195,17 +2202,12 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   "extends": vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["Line"],
+  props: ['graphLabels', 'graphDataset'],
   methods: {
     render: function render() {
       this.renderChart({
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [{
-          label: "Data 1",
-          data: [2, 10, 5, 9, 0, 6, 20],
-          backgroundColor: "transparent",
-          borderColor: "rgba(1, 116, 188, 0.50)",
-          pointBackgroundColor: "rgba(171, 71, 188, 1)"
-        }]
+        labels: this.graphLabels,
+        datasets: this.graphDataset
       }, {
         scales: {
           yAxes: [{
@@ -2217,10 +2219,14 @@ __webpack_require__.r(__webpack_exports__);
         },
         responsive: true,
         maintainAspectRatio: false,
-        title: {
+        legend: {
           display: true,
-          text: "My Data"
-        }
+          position: 'bottom'
+        } // title: {
+        //   display: true,
+        //   text: "My Data"
+        // }
+
       });
     }
   },
@@ -75649,7 +75655,7 @@ var render = function() {
     _vm.posicoes.length > 0
       ? _c(
           "div",
-          { staticClass: "row", staticStyle: { "margin-botton": "10px" } },
+          { staticClass: "row", staticStyle: { "margin-bottom": "10px" } },
           [
             _c("div", { staticClass: "col-md-12" }, [
               _c(
@@ -75707,12 +75713,19 @@ var render = function() {
       : _vm._e(),
     _vm._v(" "),
     _vm.posicoes.length > 0
-      ? _c("div", { staticClass: "row", staticStyle: {} }, [
+      ? _c("div", { staticClass: "row" }, [
           _c(
             "div",
             { staticClass: "col-md-12" },
             [
-              _vm.showGrafico ? _c("line-chart") : _vm._e(),
+              _vm.showGrafico
+                ? _c("line-chart", {
+                    attrs: {
+                      graphLabels: _vm.graphLabels,
+                      graphDataset: _vm.graphDataset
+                    }
+                  })
+                : _vm._e(),
               _vm._v(" "),
               _c("tabela", {
                 directives: [

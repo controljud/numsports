@@ -44,4 +44,51 @@ class CampeonatoController extends Controller
 
         return response()->json(['campeonato' => $campeonato, 'max_partida' => $maxPartida, 'posicao_geral' => $posicaoGeral]);
     }
+
+    public function getPosicaoDinamica()
+    {
+        try {
+            $idTemporada = 1;
+            //$idTemporada = $request->get('idTemporada');
+            
+            $maxPartida = $this->totalPontos->getMaxPartida($idTemporada);
+            $totaisPartida = $this->posicaoDinamica->getPartidasTotais($idTemporada);
+
+            $labels = [];
+            $times = [];
+            $dataset = [];
+            
+            for ($i = 1; $i <= ($maxPartida + 1); $i++) {
+                $posicaoDin = $this->posicaoDinamica->getPosicaoRodada($idTemporada, $i);
+
+                foreach ($posicaoDin as $posicao) {
+                    if (isset ($times[$posicao->nomeTime])) {
+                        $data = $times[$posicao->nomeTime]['data'];
+                        $times[$posicao->nomeTime]['data'][] = $posicao->posicao;
+                    } else {
+                        $times[$posicao->nomeTime] = [
+                            'label' => $posicao->nomeTime,
+                            'data' => [$posicao->posicao],
+                            'backgroundColor' => "transparent",
+                            'borderColor' => "rgba(1, 116, 188, 0.50)",
+                            'pointBackgroundColor' => "rgba(171, 71, 188, 1)"
+                        ];
+                    }
+                }   
+            }
+            
+            foreach ($times as $time) {
+                $dataset[] = $time;
+            }
+
+            for ($i = 1; $i <= $totaisPartida[0]->maximo; $i++) {
+                $labels[] = $i;
+            }
+
+            return response()->json(['dataset' => $dataset, 'labels' => $labels]);
+        } catch (Exception $ex) {
+            Log::error($ex->getMessage());
+            return response()->json(null);
+        }
+    }
 }

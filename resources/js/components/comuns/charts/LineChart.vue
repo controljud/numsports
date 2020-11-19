@@ -4,28 +4,16 @@
   export default {
     extends: Line,
 
+    props: [
+      'graphLabels', 'graphDataset'
+    ],
+
     methods: {
       render: function() {
         this.renderChart(
           {
-            labels: [
-              "January",
-              "February",
-              "March",
-              "April",
-              "May",
-              "June",
-              "July"
-            ],
-            datasets: [
-              {
-                label: "Data 1",
-                data: [2, 10, 5, 9, 0, 6, 20],
-                backgroundColor: "transparent",
-                borderColor: "rgba(1, 116, 188, 0.50)",
-                pointBackgroundColor: "rgba(171, 71, 188, 1)"
-              }
-            ]
+            labels: this.graphLabels,
+            datasets: this.graphDataset
           },
           {
             scales: {
@@ -38,10 +26,14 @@
             },
             responsive: true,
             maintainAspectRatio: false,
-            title: {
+            legend: {
               display: true,
-              text: "My Data"
+              position: 'bottom'
             }
+            // title: {
+            //   display: true,
+            //   text: "My Data"
+            // }
           }
         );
       }

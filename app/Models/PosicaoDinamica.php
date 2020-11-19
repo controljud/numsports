@@ -39,4 +39,11 @@ class PosicaoDinamica extends Model
         
         return DB::select(DB::raw($sql));
     }
+
+    public function getPartidasTotais($idTemporada)
+    {
+        $sql = "select ((count(distinct idMandante) * 2) - 2) as maximo from partidas where idTemporada = 1";
+
+        return DB::select(DB::raw($sql));
+    }
 }

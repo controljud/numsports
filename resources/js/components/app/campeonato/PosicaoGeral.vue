@@ -8,7 +8,7 @@
             </div>
         </div>
         
-        <div class="row" v-if="posicoes.length > 0" style="margin-botton: 10px;">
+        <div class="row" v-if="posicoes.length > 0" style="margin-bottom: 10px;">
             <div class="col-md-12">
                 <a href="javascript:void(0);" class="btn btn-md btn-light" v-show="showTabela" v-on:click="openGrafico">
                     <i class="fa fa-line-chart" aria-hidden="true"></i>
@@ -21,13 +21,17 @@
             </div>
         </div>
 
-		<div class="row" v-if="posicoes.length > 0" style="margin-botton">
+		<div class="row" v-if="posicoes.length > 0">
             <div class="col-md-12">
-                <line-chart v-if="showGrafico"/>
+                <line-chart 
+                    v-if="showGrafico"
+                    v-bind:graphLabels="graphLabels"
+                    v-bind:graphDataset="graphDataset"
+                />
                 <tabela
                     v-show="showTabela"
                     v-bind:posicoes="posicoes"
-                ></tabela>
+                />
             </div>
         </div>
 	</div>
@@ -45,12 +49,11 @@
 
 		data() {
             return {
+                graphLabels: null,
+                graphDataset: null,
                 campeonato: null,
                 posicoes: [],
                 maxPartidas: 0,
-                posicaoInicial: 1,
-                x: 1,
-                posicaoDinamica: false,
                 showTabela: true,
                 showGrafico: false
             }
@@ -66,6 +69,11 @@
                     this.posicoes = response.data.posicao_geral;
                     this.maxPartidas = response.data.max_partidas;
                     this.campeonato = response.data.campeonato;
+                });
+
+                axios.get('/numsports/public/api/v1/campeonato/posicao/dinamica').then(response => {
+                    this.graphLabels = response.data.labels;
+                    this.graphDataset = response.data.dataset;
                 });
             },
 
