@@ -20,8 +20,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'v1', 'namespace' => 'API\V1'], function() {
     Route::group(['prefix' => 'campeonato'], function() {
-        Route::get('/posicao/geral', 'CampeonatoController@getPosicaoGeral');
-        Route::get('/posicao/dinamica', 'CampeonatoController@getPosicaoDinamica');
+        Route::get('/posicao/geral/{idTemporada}', 'CampeonatoController@getPosicaoGeral');
+        Route::get('/posicao/dinamica/{idTemporada}', 'CampeonatoController@getPosicaoDinamica');
+        Route::get('/temporadas', 'CampeonatoController@getTemporadas');
     });
 
     Route::group(['prefix' => 'time'], function() {

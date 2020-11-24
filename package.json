@@ -26,6 +26,7 @@
     "dependencies": {
         "chart.js": "^2.9.3",
         "simple-modal-vue": "^1.0.12",
-        "vue-chartjs": "^3.5.1"
+        "vue-chartjs": "^3.5.1",
+        "vue-select": "^3.10.8"
     }
 }

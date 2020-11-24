@@ -16,6 +16,7 @@ class PosicaoDinamica extends Model
                     tp.idTime,
                     @contador := @contador + 1 AS posicao,
                     t.nome as nomeTime,
+                    t.cor as corTime,
                     tp.pontos,
                     tp.numPartida,
                     tp.vitorias,

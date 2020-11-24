@@ -28,14 +28,27 @@
             maintainAspectRatio: false,
             legend: {
               display: true,
-              position: 'bottom'
+              position: 'right',
+              labels: {
+                fontSize: 10,
+                padding: 9
+              }
             }
-            // title: {
-            //   display: true,
-            //   text: "My Data"
-            // }
           }
         );
+      },
+
+      unSelectAll: function() {
+        // this.graphDataset.forEach(function(ds) {
+        //   ds._meta[0].hidden = true;
+        // });
+        // this.datasets.foreach(function(ds) {
+        //   ds.hidden = !ds.hidden;
+        // });
+      },
+
+      selectAll: function() {
+
       }
     },
 
