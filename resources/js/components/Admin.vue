@@ -1,21 +1,25 @@
 <template>
 	<div>
 		<top-menu></top-menu>
-		<app-body></app-body>
-		<app-footer></app-footer>
+		<left-menu></left-menu>
+		<dash-board></dash-board>
 	</div>
 </template>
 
 <script>
-	import TopMenu from './home/TopMenu.vue';
-	//import AppBody from './home/AppBody.vue';
-	//import AppFooter from './home/AppFooter.vue';
+	import TopMenu from './admin/TopMenu';
+	import LeftMenu from './admin/LeftMenu';
+	import DashBoard from './admin/DashBoard'
 
 	export default {
+		props: [
+			'userName'
+		],
+
 		components: {
 			'top-menu': TopMenu,
-			//'top-menu': AppBody,
-			//'app-footer': AppFooter
+			'left-menu': LeftMenu,
+			'dash-board': DashBoard
 		}
 	}
 </script>

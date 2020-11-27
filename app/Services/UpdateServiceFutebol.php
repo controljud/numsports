@@ -16,32 +16,36 @@ class UpdateServiceFutebol {
 
     private function getDataFutebolBrasileiroAtual($url)
     {
-        $site = file_get_contents($url);
-        $site = str_replace('"', "'", $site);
+        try {
+            $site = file_get_contents($url);
+            $site = str_replace('"', "'", $site);
 
-        $dt01 = explode("Jogos realizados</b></p>", $site);
-        $dt02 = explode("<br><br>", $dt01[1]);
+            $dt01 = explode("Jogos realizados</b></p>", $site);
+            $dt02 = explode("<br><br>", $dt01[1]);
 
-        $dt03 = explode("<tr>", $dt02[0]);
+            $dt03 = explode("<tr>", $dt02[0]);
 
-        $x = 0;
-        $jogos = [];
-        foreach ($dt03 as $linha) {
-            if ($x > 1) {
-                $colunas = explode("<td", $linha);
+            $x = 0;
+            $jogos = [];
+            foreach ($dt03 as $linha) {
+                if ($x > 1) {
+                    $colunas = explode("<td", $linha);
 
-                $data = Carbon::createFromFormat('d/m/Y', trim(str_replace("</font></td>\n", "", str_replace("align='center' bgcolor='#FFFFFF'><font size='2'>", "", $colunas[1]))))->format('Y-m-d H:i:s');
-                $mandante = utf8_encode(trim(str_replace("</font></td>\n", "", str_replace("bgcolor='#FFFFFF'> <font size='2'>", "", $colunas[2]))));
-                $placar = explode('x', trim(str_replace("</font></td>\n", "", str_replace("bgcolor='#FFFFFF'> <font size='2'>", "", $colunas[3]))));
-                $visitante = utf8_encode(trim(str_replace("</font></td>\n", "", str_replace("bgcolor='#FFFFFF'> <font size='2'>", "", $colunas[4]))));
+                    $data = Carbon::createFromFormat('d/m/Y', trim(str_replace("</font></td>\n", "", str_replace("align='center' bgcolor='#FFFFFF'><font size='2'>", "", $colunas[1]))))->format('Y-m-d H:i:s');
+                    $mandante = utf8_encode(trim(str_replace("</font></td>\n", "", str_replace("bgcolor='#FFFFFF'> <font size='2'>", "", $colunas[2]))));
+                    $placar = explode('x', trim(str_replace("</font></td>\n", "", str_replace("bgcolor='#FFFFFF'> <font size='2'>", "", $colunas[3]))));
+                    $visitante = utf8_encode(trim(str_replace("</font></td>\n", "", str_replace("bgcolor='#FFFFFF'> <font size='2'>", "", $colunas[4]))));
 
-                $jogos[] = ['data' => $data, 'mandante' => $mandante, 'placar' => $placar, 'visitante' => $visitante];
+                    $jogos[] = ['data' => $data, 'mandante' => $mandante, 'placar' => $placar, 'visitante' => $visitante];
+                }
+            
+                $x++;
             }
-        
-            $x++;
-        }
 
-        return $jogos;
+            return $jogos;
+        } catch (Exception $ex) {
+            
+        }
     }
 
     private function getDataFutebolBrasileiroAnteriores($url)
