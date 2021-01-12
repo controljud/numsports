@@ -8,8 +8,6 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-import router from './router';
-
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -23,6 +21,7 @@ import router from './router';
 
 Vue.component('app', require('./components/App.vue').default);
 Vue.component('admin', require('./components/Admin.vue').default);
+Vue.component('partida', require('./components/admin/pages/Partidas.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -31,6 +30,5 @@ Vue.component('admin', require('./components/Admin.vue').default);
  */
 
 const app = new Vue({
-    router
-    //el: '#app',
-}).$mount('#app');
+    el: '#app',
+});

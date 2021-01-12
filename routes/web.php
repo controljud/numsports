@@ -23,3 +23,4 @@ Route::get('/', 'AppController@index')->name('app');
 
 Auth::routes();
 Route::get('/admin', 'AdminController@index')->name('admin');
+Route::get('/admin/partidas', 'AdminController@indexPartidas')->name('admin.partidas');

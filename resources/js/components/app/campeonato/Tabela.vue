@@ -28,7 +28,7 @@
                 <td class='center'>{{posicao.golsSofridos}}</td>
                 <td class='center'>{{posicao.saldo}}</td>
                 <td class='center'>
-                    <span v-for="(resultado, index) of posicao.resultados" :key="index">
+                    <span v-for="(resultado, index) of posicao.resultados" ey="index">
                         <img v-if="resultado.resultado == 3" src="images/check.png" class="imgResult"/>
                         <img v-if="resultado.resultado == 1" src="images/minus.png" class="imgResult"/>
                         <img v-if="resultado.resultado == 0" src="images/cancel.png" class="imgResult"/>

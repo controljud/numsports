@@ -31,7 +31,7 @@
               position: 'right',
               labels: {
                 fontSize: 10,
-                padding: 9
+                padding: 8.5
               }
             }
           }
@@ -39,6 +39,11 @@
       },
 
       unSelectAll: function() {
+        this.graphDataset.forEach(function(ds) {
+          //ds._meta.hide();
+          //console.log(ds);
+          //ds.label.hidden = true;
+        });
         // this.graphDataset.forEach(function(ds) {
         //   ds._meta[0].hidden = true;
         // });

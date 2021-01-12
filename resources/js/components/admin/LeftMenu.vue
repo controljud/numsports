@@ -20,9 +20,10 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-calendar"></i>
+            <a href="admin/partidas" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
               <p>Partidas</p>
             </a>
           </li>
