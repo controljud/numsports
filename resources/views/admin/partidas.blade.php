@@ -8,9 +8,9 @@
         <meta name="description" content="Estatísticas dos Esportes">
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-        <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-        <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-        <link rel="stylesheet" href="css/adminlte.min.css">
+        <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
 
         <link rel="shortcut icon" href="{{ asset('images/stats.ico') }}">
 
@@ -30,9 +30,9 @@
                 <partidas></parttidas>
             </div>
         </div>
-        <script src="plugins/jquery/jquery.min.js"></script>
+        <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
         <!-- Bootstrap -->
-        <script src="js/adminlte.js"></script>
+        <script src="{{ asset('js/adminlte.js') }}"></script>
         <script src="{{ asset('js/app.js') }}"></script>
     </body>
 </html>

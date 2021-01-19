@@ -1,16 +1,18 @@
 <template>
     <div>
         <layout></layout>
-        Partidas
+        <lista></lista>
     </div>
 </template>
 
 <script>
-    import Layout from './../../admin/Layout'
+    import Layout from './../../admin/Layout';
+    import Lista from './Lista'
     
     export default {
         components: {
-			'layout': Layout
+            'layout': Layout,
+            'lista': Lista
 		}
     }
 </script>
