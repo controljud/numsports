@@ -25,9 +25,4 @@ class AdminController extends Controller
     {
         return view('admin');
     }
-
-    public function indexPartidas()
-    {
-        return view('admin.partidas');
-    }
 }

@@ -33,6 +33,11 @@ class MatchesController extends Controller
         $this->posicao = new Posicao;
     }
 
+    public function index()
+    {
+        return view('admin.partidas');
+    }
+
     public function getDataFutebolBrasileiro(Request $request, $idTemporada)
     {
         set_time_limit(0);
