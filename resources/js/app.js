@@ -21,7 +21,7 @@ window.Vue = require('vue');
 
 Vue.component('app', require('./components/App.vue').default);
 Vue.component('admin', require('./components/Admin.vue').default);
-Vue.component('partidas', require('./components/admin/pages/Partidas.vue').default);
+Vue.component('partidas', require('./components/admin/pages/Partidas/Partidas.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

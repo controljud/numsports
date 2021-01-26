@@ -14,4 +14,9 @@ class Campeonato extends Model{
             ->where('temporadas.id', $idCampeonato)
             ->first();
     }
+
+    public function getCampeonatos()
+    {
+        return $this::all();
+    }
 }

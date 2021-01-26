@@ -22,7 +22,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API\V1'], function() {
     Route::group(['prefix' => 'campeonato'], function() {
         Route::get('/posicao/geral/{idTemporada}', 'CampeonatoController@getPosicaoGeral');
         Route::get('/posicao/dinamica/{idTemporada}', 'CampeonatoController@getPosicaoDinamica');
-        Route::get('/temporadas', 'CampeonatoController@getTemporadas');
+        Route::get('/temporadas/{idCampeonato}', 'CampeonatoController@getTemporadas');
+        Route::get('/campeonatos', 'CampeonatoController@getCampeonatos');
     });
 
     Route::group(['prefix' => 'time'], function() {

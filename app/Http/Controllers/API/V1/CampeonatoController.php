@@ -104,10 +104,14 @@ class CampeonatoController extends Controller
         }
     }
 
-    public function getTemporadas()
+    public function getCampeonatos()
     {
-        $idCampeonato = 1;
-        
+        $campeonatos = $this->campeonato->getCampeonatos();
+        return response()->json($campeonatos);
+    }
+
+    public function getTemporadas(Request $request, $idCampeonato = 1)
+    {   
         $temporadas = $this->temporada->getTemporadas(1);
         return response()->json($temporadas);
     }

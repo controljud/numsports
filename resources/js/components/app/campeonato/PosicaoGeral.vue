@@ -120,7 +120,7 @@
             },
 
             getTemporadas: function() {
-                axios.get('/numsports/public/api/v1/campeonato/temporadas').then(response => {
+                axios.get('/numsports/public/api/v1/campeonato/temporadas/1').then(response => {
                     this.temporadas = response.data;
                     this.setTemporadaAtiva(true);
                 });
