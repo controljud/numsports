@@ -4,7 +4,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Lista - arrumar</h1>
+                        <h1 class="m-0">Partidas</h1>
                     </div>
                 </div>
                 <div class="row">
@@ -14,7 +14,13 @@
                     </div>
                     <div class="col-md-4">
                         <label>Temporada</label>
-                        <v-select :options="temporadas" v-model="temporada" label="temporada" code="id"></v-select>
+                        <v-select :options="temporadas" v-model="temporada" label="temporada" code="id" @input="getPartidas"></v-select>
+                    </div>
+                    <div class="col-md-2" style="text-align: right; padding-top: 30px">
+                        <a v-if="partidas.data" href="javascript:void(0)" class="btn btn-sm btn-primary" v-on:click="openCadastro">
+                            <i class="fa fa-plus"></i>
+                            Nova
+                        </a>
                     </div>
                 </div>
             </div>
@@ -22,13 +28,112 @@
 
         <section class="content">
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-10"></div>
-                    <div class="col-md-2" style="text-align: right">
-                        <a href="javascript:void(0)" class="btn btn-sm btn-success">
-                            <i class="fa fa-plus"></i>
-                            Nova
-                        </a>
+                <div v-if="partidas.data">
+                    <div class="row" v-if="nova">
+                        <div class="col-md-12">
+                            <hr/>
+                            <h3>Nova Partida</h3>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label>Data</label>
+                                    <input type="date" v-model="partida.data" class="form-control">
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Mandante</label>
+                                    <v-select :options="times" v-model="partida.mandante" label="nome" code="id" style="margin-top: 3px"></v-select>
+                                </div>
+                                <div class="col-md-2">
+                                    <label>Gols Mandante</label>
+                                    <input type="number" v-model="partida.placarMandante" class="form-control">
+                                </div>
+                                <div class="col-md-2">
+                                    <label>Gols Visitante</label>
+                                    <input type="number" v-model="partida.placarVisitante" class="form-control">
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Visitante</label>
+                                    <v-select :options="times" v-model="partida.visitante" label="nome" code="id" style="margin-top: 3px"></v-select>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 15px;">
+                                <div class="col-md-4">
+                                    <a href="javascript:void(0)" class="btn btn-light btn-sm" v-on:click="cadastrarPartida(false)">
+                                        Cancelar
+                                    </a>
+                                    <a href="javascript:void(0)" class="btn btn-success btn-sm" v-on:click="cadastrarPartida(true)">
+                                        <i class="fa fa-save"></i> Salvar
+                                    </a>
+                                </div>
+                            </div>
+                            <hr/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Data</th><th class="right">Mandante</th><th></th><th></th><th></th><th>Visitante</th><th style="width: 75px">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(partida, index) of partidas.data" :key="index">
+                                        <td>{{format_date(partida.data)}}</td>
+                                        <td class="right">{{partida.mandante}}</td>
+                                        <td class="center">{{partida.placarMandante}}</td>
+                                        <td class="center">X</td>
+                                        <td class="center">{{partida.placarVisitante}}</td>
+                                        <td>{{partida.visitante}}</td>
+                                        <td>
+                                            <a href="javascript:void(0)" class="btn btn-sm btn-secondary" title="Editar">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" title="Excluir">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row" v-if="partidas.last_page && partidas.last_page > 1">
+                        <div class="col-md-6">
+                            Mostrando página <b>{{partidas.current_page}}</b> de <b>{{partidas.last_page}}</b>
+                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-secondary" v-if="partidas.current_page > 1" v-on:click="getPartidasUrl(partidas.first_page_url)">
+                                    <input type="radio" name="options" id="option1" autocomplete="off" checked>
+                                    <i class="fa fa-fast-backward"></i>
+                                </label>
+                                <label class="btn btn-secondary" v-if="partidas.current_page > 1" v-on:click="getPartidasUrl(partidas.path + '?page=' + (partidas.current_page - 1))">
+                                    <input type="radio" name="options" id="option1" autocomplete="off" checked>
+                                    <i class="fa fa-backward"></i>
+                                </label>
+                                <label class="btn btn-secondary active" v-on:click="getPartidasUrl(partidas.path + '?page=1')">
+                                    <input type="radio" name="options" id="option1" autocomplete="off" checked> 1
+                                </label>
+                                <label class="btn btn-secondary" v-if="partidas.last_page > 1" v-on:click="getPartidasUrl(partidas.path + '?page=2')">
+                                    <input type="radio" name="options" id="option2" autocomplete="off"> 2
+                                </label>
+                                <label class="btn btn-secondary" v-if="partidas.last_page > 8">
+                                    <input type="radio" name="options" id="option3" autocomplete="off"> ...
+                                </label>
+                                <label class="btn btn-secondary" v-if="(partidas.last_page - 3) > 8" v-on:click="getPartidasUrl(partidas.path + '?page=' + (partidas.last_page - 1))">
+                                    <input type="radio" name="options" id="option1" autocomplete="off" checked> {{partidas.last_page - 1}}
+                                </label>
+                                <label class="btn btn-secondary" v-if="(partidas.last_page - 3) > 8" v-on:click="getPartidasUrl(partidas.path + '?page=' + (partidas.last_page))">
+                                    <input type="radio" name="options" id="option1" autocomplete="off" checked> {{partidas.last_page}}
+                                </label>
+                                <label class="btn btn-secondary" v-if="partidas.current_page < partidas.last_page" v-on:click="getPartidasUrl(partidas.path + '?page=' + (partidas.current_page + 1))">
+                                    <input type="radio" name="options" id="option1" autocomplete="off" checked>
+                                    <i class="fa fa-forward"></i>
+                                </label>
+                                <label class="btn btn-secondary" v-if="partidas.current_page < partidas.last_page" v-on:click="getPartidasUrl(partidas.last_page_url)">
+                                    <input type="radio" name="options" id="option1" autocomplete="off" checked>
+                                    <i class="fa fa-fast-forward"></i>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -39,6 +144,7 @@
 <script>
     import vSelect from 'vue-select'
     import 'vue-select/dist/vue-select.css'
+    import moment from 'moment'
     
     export default {
         props: [
@@ -46,20 +152,31 @@
         ],
 
         components: {
-            vSelect
+            vSelect,
+            moment
 		},
         
         data() {
             return {
                 campeonato: null,
                 temporadas: [],
-                temporada: null
+                temporada: null,
+                partidas: [],
+                partidaUrl: null,
+                nova: false,
+                partida: {
+                    data: null,
+                    mandante: null,
+                    placarMandante: null,
+                    placarVisitante: null,
+                    visitante: null
+                },
+                times: []
             }
         },
         
         methods: {
             getTemporadas: function() {
-                console.log(this.campeonato);
                 if (this.campeonato != null) {
                     axios.get('/numsports/public/api/v1/campeonato/temporadas/' + this.campeonato.id).then(response => {
                         this.temporadas = response.data;
@@ -69,9 +186,62 @@
                 }
             },
 
-            getPartidas: function() {
+            getPartidasUrl: function(url) {
+                this.partidaUrl = url;
+                this.getPartidas();
+            },
 
-            }
+            getPartidas: function() {
+                let url = '/numsports/public/api/v1/partida/partidas/' + this.temporada.id
+                
+                if (this.partidaUrl != null) {
+                    url = this.partidaUrl;
+                }
+                
+                if (this.campeonato != null) {
+                    axios.get(url).then(response => {
+                        this.partidas = response.data;
+                        console.log(response.data);
+                    });
+                } else {
+                    this.partidas = [];
+                }
+            },
+
+            openCadastro(){
+                axios.get('/numsports/public/api/v1/time/times').then(response => {
+                    this.times = response.data;
+                });
+                this.nova = true;
+            },
+
+            cadastrarPartida(salvar){
+                if (salvar) {
+
+                }
+                
+                this.nova = false;
+            },
+
+            format_date(value){
+                if (value) {
+                    return moment(String(value)).format('DD/MM/YYYY');
+                }
+            },
         }
     }
 </script>
+
+<style scoped>
+    .table td, .table th {
+        padding: 2px !important;
+    }
+
+    .right {
+        text-align: right;
+    }
+
+    .center {
+        text-align: center;
+    }
+</style>

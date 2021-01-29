@@ -28,5 +28,12 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API\V1'], function() {
 
     Route::group(['prefix' => 'time'], function() {
         Route::get('/resultado/ultimos/{idTemporada}/{idTime}', 'TimeController@getUltimosResultados');
+        Route::get('/times', 'TimeController@getTimes');
     });
+
+    
+});
+
+Route::group(['prefix' => 'v1/partida'], function() {
+    Route::get('/partidas/{idTemporada}', 'MatchesController@getPartidas');
 });

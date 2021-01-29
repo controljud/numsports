@@ -167,4 +167,23 @@ class MatchesController extends Controller
         $posicao->nomeTime = $nomeTime;
         $posicao->save();
     }
+
+    public function getPartidas(Request $request, $idTemporada)
+    {
+        $partidas = $this->partida::join(DB::raw('times t1'), 't1.id', 'partidas.idMandante')
+            ->join(DB::raw('times t2'), 't2.id', 'partidas.idVisitante')
+            ->where('partidas.idTemporada', $idTemporada)
+            ->select(
+                'partidas.data',
+                'idMandante',
+                't1.nome as mandante',
+                'partidas.placarMandante',
+                'partidas.placarVisitante',
+                'idVisitante',
+                't2.nome as visitante'
+            )->orderBy('partidas.data', 'desc')
+            ->paginate(10);
+
+        return $partidas;
+    }
 }

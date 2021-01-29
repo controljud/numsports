@@ -2183,6 +2183,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_select__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_select_dist_vue_select_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-select/dist/vue-select.css */ "./node_modules/vue-select/dist/vue-select.css");
 /* harmony import */ var vue_select_dist_vue_select_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_select_dist_vue_select_css__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
 //
 //
 //
@@ -2221,25 +2223,141 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['campeonatos'],
   components: {
-    vSelect: vue_select__WEBPACK_IMPORTED_MODULE_0___default.a
+    vSelect: vue_select__WEBPACK_IMPORTED_MODULE_0___default.a,
+    moment: moment__WEBPACK_IMPORTED_MODULE_2___default.a
   },
   data: function data() {
     return {
       campeonato: null,
       temporadas: [],
-      temporada: null
+      temporada: null,
+      partidas: [],
+      partidaUrl: null,
+      nova: false,
+      partida: {
+        data: null,
+        mandante: null,
+        placarMandante: null,
+        placarVisitante: null,
+        visitante: null
+      },
+      times: []
     };
   },
   methods: {
     getTemporadas: function getTemporadas() {
       var _this = this;
-
-      console.log(this.campeonato);
 
       if (this.campeonato != null) {
         axios.get('/numsports/public/api/v1/campeonato/temporadas/' + this.campeonato.id).then(function (response) {
@@ -2249,7 +2367,46 @@ __webpack_require__.r(__webpack_exports__);
         this.temporadas = [];
       }
     },
-    getPartidas: function getPartidas() {}
+    getPartidasUrl: function getPartidasUrl(url) {
+      this.partidaUrl = url;
+      this.getPartidas();
+    },
+    getPartidas: function getPartidas() {
+      var _this2 = this;
+
+      var url = '/numsports/public/api/v1/partida/partidas/' + this.temporada.id;
+
+      if (this.partidaUrl != null) {
+        url = this.partidaUrl;
+      }
+
+      if (this.campeonato != null) {
+        axios.get(url).then(function (response) {
+          _this2.partidas = response.data;
+          console.log(response.data);
+        });
+      } else {
+        this.partidas = [];
+      }
+    },
+    openCadastro: function openCadastro() {
+      var _this3 = this;
+
+      axios.get('/numsports/public/api/v1/time/times').then(function (response) {
+        _this3.times = response.data;
+      });
+      this.nova = true;
+    },
+    cadastrarPartida: function cadastrarPartida(salvar) {
+      if (salvar) {}
+
+      this.nova = false;
+    },
+    format_date: function format_date(value) {
+      if (value) {
+        return moment__WEBPACK_IMPORTED_MODULE_2___default()(String(value)).format('DD/MM/YYYY');
+      }
+    }
   }
 });
 
@@ -23257,6 +23414,25 @@ exports = module.exports = __webpack_require__(/*! ../../css-loader/lib/css-base
 
 // module
 exports.push([module.i, ".v-select{position:relative;font-family:inherit}.v-select,.v-select *{box-sizing:border-box}@-webkit-keyframes vSelectSpinner{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}@keyframes vSelectSpinner{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}.vs__fade-enter-active,.vs__fade-leave-active{pointer-events:none;transition:opacity .15s cubic-bezier(1,.5,.8,1)}.vs__fade-enter,.vs__fade-leave-to{opacity:0}.vs--disabled .vs__clear,.vs--disabled .vs__dropdown-toggle,.vs--disabled .vs__open-indicator,.vs--disabled .vs__search,.vs--disabled .vs__selected{cursor:not-allowed;background-color:#f8f8f8}.v-select[dir=rtl] .vs__actions{padding:0 3px 0 6px}.v-select[dir=rtl] .vs__clear{margin-left:6px;margin-right:0}.v-select[dir=rtl] .vs__deselect{margin-left:0;margin-right:2px}.v-select[dir=rtl] .vs__dropdown-menu{text-align:right}.vs__dropdown-toggle{-webkit-appearance:none;-moz-appearance:none;appearance:none;display:flex;padding:0 0 4px;background:none;border:1px solid rgba(60,60,60,.26);border-radius:4px;white-space:normal}.vs__selected-options{display:flex;flex-basis:100%;flex-grow:1;flex-wrap:wrap;padding:0 2px;position:relative}.vs__actions{display:flex;align-items:center;padding:4px 6px 0 3px}.vs--searchable .vs__dropdown-toggle{cursor:text}.vs--unsearchable .vs__dropdown-toggle{cursor:pointer}.vs--open .vs__dropdown-toggle{border-bottom-color:transparent;border-bottom-left-radius:0;border-bottom-right-radius:0}.vs__open-indicator{fill:rgba(60,60,60,.5);transform:scale(1);transition:transform .15s cubic-bezier(1,-.115,.975,.855);transition-timing-function:cubic-bezier(1,-.115,.975,.855)}.vs--open .vs__open-indicator{transform:rotate(180deg) scale(1)}.vs--loading .vs__open-indicator{opacity:0}.vs__clear{fill:rgba(60,60,60,.5);padding:0;border:0;background-color:transparent;cursor:pointer;margin-right:8px}.vs__dropdown-menu{display:block;box-sizing:border-box;position:absolute;top:calc(100% - 1px);left:0;z-index:1000;padding:5px 0;margin:0;width:100%;max-height:350px;min-width:160px;overflow-y:auto;box-shadow:0 3px 6px 0 rgba(0,0,0,.15);border:1px solid rgba(60,60,60,.26);border-top-style:none;border-radius:0 0 4px 4px;text-align:left;list-style:none;background:#fff}.vs__no-options{text-align:center}.vs__dropdown-option{line-height:1.42857143;display:block;padding:3px 20px;clear:both;color:#333;white-space:nowrap}.vs__dropdown-option:hover{cursor:pointer}.vs__dropdown-option--highlight{background:#5897fb;color:#fff}.vs__dropdown-option--disabled{background:inherit;color:rgba(60,60,60,.5)}.vs__dropdown-option--disabled:hover{cursor:inherit}.vs__selected{display:flex;align-items:center;background-color:#f0f0f0;border:1px solid rgba(60,60,60,.26);border-radius:4px;color:#333;line-height:1.4;margin:4px 2px 0;padding:0 .25em;z-index:0}.vs__deselect{display:inline-flex;-webkit-appearance:none;-moz-appearance:none;appearance:none;margin-left:4px;padding:0;border:0;cursor:pointer;background:none;fill:rgba(60,60,60,.5);text-shadow:0 1px 0 #fff}.vs--single .vs__selected{background-color:transparent;border-color:transparent}.vs--single.vs--open .vs__selected{position:absolute;opacity:.4}.vs--single.vs--searching .vs__selected{display:none}.vs__search::-webkit-search-cancel-button{display:none}.vs__search::-ms-clear,.vs__search::-webkit-search-decoration,.vs__search::-webkit-search-results-button,.vs__search::-webkit-search-results-decoration{display:none}.vs__search,.vs__search:focus{-webkit-appearance:none;-moz-appearance:none;appearance:none;line-height:1.4;font-size:1em;border:1px solid transparent;border-left:none;outline:none;margin:4px 0 0;padding:0 7px;background:none;box-shadow:none;width:0;max-width:100%;flex-grow:1;z-index:1}.vs__search::-moz-placeholder{color:inherit}.vs__search:-ms-input-placeholder{color:inherit}.vs__search::placeholder{color:inherit}.vs--unsearchable .vs__search{opacity:1}.vs--unsearchable:not(.vs--disabled) .vs__search:hover{cursor:pointer}.vs--single.vs--searching:not(.vs--open):not(.vs--loading) .vs__search{opacity:.2}.vs__spinner{align-self:center;opacity:0;font-size:5px;text-indent:-9999em;overflow:hidden;border:.9em solid hsla(0,0%,39.2%,.1);border-left-color:rgba(60,60,60,.45);transform:translateZ(0);-webkit-animation:vSelectSpinner 1.1s linear infinite;animation:vSelectSpinner 1.1s linear infinite;transition:opacity .1s}.vs__spinner,.vs__spinner:after{border-radius:50%;width:5em;height:5em}.vs--loading .vs__spinner{opacity:1}", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/pages/Partidas/Lista.vue?vue&type=style&index=0&id=6ee9412a&scoped=true&lang=css&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/pages/Partidas/Lista.vue?vue&type=style&index=0&id=6ee9412a&scoped=true&lang=css& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.table td[data-v-6ee9412a], .table th[data-v-6ee9412a] {\n    padding: 2px !important;\n}\n.right[data-v-6ee9412a] {\n    text-align: right;\n}\n.center[data-v-6ee9412a] {\n    text-align: center;\n}\n", ""]);
 
 // exports
 
@@ -75614,6 +75790,36 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/pages/Partidas/Lista.vue?vue&type=style&index=0&id=6ee9412a&scoped=true&lang=css&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/pages/Partidas/Lista.vue?vue&type=style&index=0&id=6ee9412a&scoped=true&lang=css& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../../node_modules/css-loader??ref--6-1!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Lista.vue?vue&type=style&index=0&id=6ee9412a&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/pages/Partidas/Lista.vue?vue&type=style&index=0&id=6ee9412a&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/lib/addStyles.js":
 /*!****************************************************!*\
   !*** ./node_modules/style-loader/lib/addStyles.js ***!
@@ -76886,10 +77092,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/pages/Partidas/Lista.vue?vue&type=template&id=6ee9412a&":
-/*!*****************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/pages/Partidas/Lista.vue?vue&type=template&id=6ee9412a& ***!
-  \*****************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/pages/Partidas/Lista.vue?vue&type=template&id=6ee9412a&scoped=true&":
+/*!*****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/pages/Partidas/Lista.vue?vue&type=template&id=6ee9412a&scoped=true& ***!
+  \*****************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -76940,6 +77146,7 @@ var render = function() {
                   label: "temporada",
                   code: "id"
                 },
+                on: { input: _vm.getPartidas },
                 model: {
                   value: _vm.temporada,
                   callback: function($$v) {
@@ -76950,12 +77157,565 @@ var render = function() {
               })
             ],
             1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "col-md-2",
+              staticStyle: { "text-align": "right", "padding-top": "30px" }
+            },
+            [
+              _vm.partidas.data
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-sm btn-primary",
+                      attrs: { href: "javascript:void(0)" },
+                      on: { click: _vm.openCadastro }
+                    },
+                    [
+                      _c("i", { staticClass: "fa fa-plus" }),
+                      _vm._v(
+                        "\n                        Nova\n                    "
+                      )
+                    ]
+                  )
+                : _vm._e()
+            ]
           )
         ])
       ])
     ]),
     _vm._v(" "),
-    _vm._m(1)
+    _c("section", { staticClass: "content" }, [
+      _c("div", { staticClass: "container-fluid" }, [
+        _vm.partidas.data
+          ? _c("div", [
+              _vm.nova
+                ? _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-12" }, [
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c("h3", [_vm._v("Nova Partida")]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-md-2" }, [
+                          _c("label", [_vm._v("Data")]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.partida.data,
+                                expression: "partida.data"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "date" },
+                            domProps: { value: _vm.partida.data },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.partida,
+                                  "data",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "col-md-3" },
+                          [
+                            _c("label", [_vm._v("Mandante")]),
+                            _vm._v(" "),
+                            _c("v-select", {
+                              staticStyle: { "margin-top": "3px" },
+                              attrs: {
+                                options: _vm.times,
+                                label: "nome",
+                                code: "id"
+                              },
+                              model: {
+                                value: _vm.partida.mandante,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.partida, "mandante", $$v)
+                                },
+                                expression: "partida.mandante"
+                              }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-2" }, [
+                          _c("label", [_vm._v("Gols Mandante")]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.partida.placarMandante,
+                                expression: "partida.placarMandante"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "number" },
+                            domProps: { value: _vm.partida.placarMandante },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.partida,
+                                  "placarMandante",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-2" }, [
+                          _c("label", [_vm._v("Gols Visitante")]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.partida.placarVisitante,
+                                expression: "partida.placarVisitante"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "number" },
+                            domProps: { value: _vm.partida.placarVisitante },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.partida,
+                                  "placarVisitante",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "col-md-3" },
+                          [
+                            _c("label", [_vm._v("Visitante")]),
+                            _vm._v(" "),
+                            _c("v-select", {
+                              staticStyle: { "margin-top": "3px" },
+                              attrs: {
+                                options: _vm.times,
+                                label: "nome",
+                                code: "id"
+                              },
+                              model: {
+                                value: _vm.partida.visitante,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.partida, "visitante", $$v)
+                                },
+                                expression: "partida.visitante"
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "row",
+                          staticStyle: { "margin-top": "15px" }
+                        },
+                        [
+                          _c("div", { staticClass: "col-md-4" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "btn btn-light btn-sm",
+                                attrs: { href: "javascript:void(0)" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.cadastrarPartida(false)
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                    Cancelar\n                                "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                staticClass: "btn btn-success btn-sm",
+                                attrs: { href: "javascript:void(0)" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.cadastrarPartida(true)
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", { staticClass: "fa fa-save" }),
+                                _vm._v(
+                                  " Salvar\n                                "
+                                )
+                              ]
+                            )
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("hr")
+                    ])
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-7" }, [
+                  _c("table", { staticClass: "table" }, [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.partidas.data, function(partida, index) {
+                        return _c("tr", { key: index }, [
+                          _c("td", [
+                            _vm._v(_vm._s(_vm.format_date(partida.data)))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "right" }, [
+                            _vm._v(_vm._s(partida.mandante))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "center" }, [
+                            _vm._v(_vm._s(partida.placarMandante))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "center" }, [_vm._v("X")]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "center" }, [
+                            _vm._v(_vm._s(partida.placarVisitante))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(partida.visitante))]),
+                          _vm._v(" "),
+                          _vm._m(2, true)
+                        ])
+                      }),
+                      0
+                    )
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _vm.partidas.last_page && _vm.partidas.last_page > 1
+                ? _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _vm._v("\n                        Mostrando página "),
+                      _c("b", [_vm._v(_vm._s(_vm.partidas.current_page))]),
+                      _vm._v(" de "),
+                      _c("b", [_vm._v(_vm._s(_vm.partidas.last_page))]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "btn-group btn-group-toggle",
+                          attrs: { "data-toggle": "buttons" }
+                        },
+                        [
+                          _vm.partidas.current_page > 1
+                            ? _c(
+                                "label",
+                                {
+                                  staticClass: "btn btn-secondary",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.getPartidasUrl(
+                                        _vm.partidas.first_page_url
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("input", {
+                                    attrs: {
+                                      type: "radio",
+                                      name: "options",
+                                      id: "option1",
+                                      autocomplete: "off",
+                                      checked: ""
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("i", {
+                                    staticClass: "fa fa-fast-backward"
+                                  })
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.partidas.current_page > 1
+                            ? _c(
+                                "label",
+                                {
+                                  staticClass: "btn btn-secondary",
+                                  on: {
+                                    click: function($event) {
+                                      _vm.getPartidasUrl(
+                                        _vm.partidas.path +
+                                          "?page=" +
+                                          (_vm.partidas.current_page - 1)
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("input", {
+                                    attrs: {
+                                      type: "radio",
+                                      name: "options",
+                                      id: "option1",
+                                      autocomplete: "off",
+                                      checked: ""
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("i", { staticClass: "fa fa-backward" })
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c(
+                            "label",
+                            {
+                              staticClass: "btn btn-secondary active",
+                              on: {
+                                click: function($event) {
+                                  return _vm.getPartidasUrl(
+                                    _vm.partidas.path + "?page=1"
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c("input", {
+                                attrs: {
+                                  type: "radio",
+                                  name: "options",
+                                  id: "option1",
+                                  autocomplete: "off",
+                                  checked: ""
+                                }
+                              }),
+                              _vm._v(" 1\n                            ")
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _vm.partidas.last_page > 1
+                            ? _c(
+                                "label",
+                                {
+                                  staticClass: "btn btn-secondary",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.getPartidasUrl(
+                                        _vm.partidas.path + "?page=2"
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("input", {
+                                    attrs: {
+                                      type: "radio",
+                                      name: "options",
+                                      id: "option2",
+                                      autocomplete: "off"
+                                    }
+                                  }),
+                                  _vm._v(" 2\n                            ")
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.partidas.last_page > 8
+                            ? _c(
+                                "label",
+                                { staticClass: "btn btn-secondary" },
+                                [
+                                  _c("input", {
+                                    attrs: {
+                                      type: "radio",
+                                      name: "options",
+                                      id: "option3",
+                                      autocomplete: "off"
+                                    }
+                                  }),
+                                  _vm._v(" ...\n                            ")
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.partidas.last_page - 3 > 8
+                            ? _c(
+                                "label",
+                                {
+                                  staticClass: "btn btn-secondary",
+                                  on: {
+                                    click: function($event) {
+                                      _vm.getPartidasUrl(
+                                        _vm.partidas.path +
+                                          "?page=" +
+                                          (_vm.partidas.last_page - 1)
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("input", {
+                                    attrs: {
+                                      type: "radio",
+                                      name: "options",
+                                      id: "option1",
+                                      autocomplete: "off",
+                                      checked: ""
+                                    }
+                                  }),
+                                  _vm._v(
+                                    " " +
+                                      _vm._s(_vm.partidas.last_page - 1) +
+                                      "\n                            "
+                                  )
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.partidas.last_page - 3 > 8
+                            ? _c(
+                                "label",
+                                {
+                                  staticClass: "btn btn-secondary",
+                                  on: {
+                                    click: function($event) {
+                                      _vm.getPartidasUrl(
+                                        _vm.partidas.path +
+                                          "?page=" +
+                                          _vm.partidas.last_page
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("input", {
+                                    attrs: {
+                                      type: "radio",
+                                      name: "options",
+                                      id: "option1",
+                                      autocomplete: "off",
+                                      checked: ""
+                                    }
+                                  }),
+                                  _vm._v(
+                                    " " +
+                                      _vm._s(_vm.partidas.last_page) +
+                                      "\n                            "
+                                  )
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.partidas.current_page < _vm.partidas.last_page
+                            ? _c(
+                                "label",
+                                {
+                                  staticClass: "btn btn-secondary",
+                                  on: {
+                                    click: function($event) {
+                                      _vm.getPartidasUrl(
+                                        _vm.partidas.path +
+                                          "?page=" +
+                                          (_vm.partidas.current_page + 1)
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("input", {
+                                    attrs: {
+                                      type: "radio",
+                                      name: "options",
+                                      id: "option1",
+                                      autocomplete: "off",
+                                      checked: ""
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("i", { staticClass: "fa fa-forward" })
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.partidas.current_page < _vm.partidas.last_page
+                            ? _c(
+                                "label",
+                                {
+                                  staticClass: "btn btn-secondary",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.getPartidasUrl(
+                                        _vm.partidas.last_page_url
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("input", {
+                                    attrs: {
+                                      type: "radio",
+                                      name: "options",
+                                      id: "option1",
+                                      autocomplete: "off",
+                                      checked: ""
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("i", { staticClass: "fa fa-fast-forward" })
+                                ]
+                              )
+                            : _vm._e()
+                        ]
+                      )
+                    ])
+                  ])
+                : _vm._e()
+            ])
+          : _vm._e()
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -76965,7 +77725,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row mb-2" }, [
       _c("div", { staticClass: "col-sm-6" }, [
-        _c("h1", { staticClass: "m-0" }, [_vm._v("Lista - arrumar")])
+        _c("h1", { staticClass: "m-0" }, [_vm._v("Partidas")])
       ])
     ])
   },
@@ -76973,30 +77733,40 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("section", { staticClass: "content" }, [
-      _c("div", { staticClass: "container-fluid" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-10" }),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "col-md-2", staticStyle: { "text-align": "right" } },
-            [
-              _c(
-                "a",
-                {
-                  staticClass: "btn btn-sm btn-success",
-                  attrs: { href: "javascript:void(0)" }
-                },
-                [
-                  _c("i", { staticClass: "fa fa-plus" }),
-                  _vm._v("\n                        Nova\n                    ")
-                ]
-              )
-            ]
-          )
-        ])
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Data")]),
+        _c("th", { staticClass: "right" }, [_vm._v("Mandante")]),
+        _c("th"),
+        _c("th"),
+        _c("th"),
+        _c("th", [_vm._v("Visitante")]),
+        _c("th", { staticStyle: { width: "75px" } }, [_vm._v("Ações")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-sm btn-secondary",
+          attrs: { href: "javascript:void(0)", title: "Editar" }
+        },
+        [_c("i", { staticClass: "fa fa-edit" })]
+      ),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-sm btn-danger",
+          attrs: { href: "javascript:void(0)", title: "Excluir" }
+        },
+        [_c("i", { staticClass: "fa fa-trash" })]
+      )
     ])
   }
 ]
@@ -90216,9 +90986,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Lista_vue_vue_type_template_id_6ee9412a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Lista.vue?vue&type=template&id=6ee9412a& */ "./resources/js/components/admin/pages/Partidas/Lista.vue?vue&type=template&id=6ee9412a&");
+/* harmony import */ var _Lista_vue_vue_type_template_id_6ee9412a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Lista.vue?vue&type=template&id=6ee9412a&scoped=true& */ "./resources/js/components/admin/pages/Partidas/Lista.vue?vue&type=template&id=6ee9412a&scoped=true&");
 /* harmony import */ var _Lista_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Lista.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/pages/Partidas/Lista.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _Lista_vue_vue_type_style_index_0_id_6ee9412a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Lista.vue?vue&type=style&index=0&id=6ee9412a&scoped=true&lang=css& */ "./resources/js/components/admin/pages/Partidas/Lista.vue?vue&type=style&index=0&id=6ee9412a&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -90226,13 +90998,13 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _Lista_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Lista_vue_vue_type_template_id_6ee9412a___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Lista_vue_vue_type_template_id_6ee9412a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Lista_vue_vue_type_template_id_6ee9412a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Lista_vue_vue_type_template_id_6ee9412a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  null,
+  "6ee9412a",
   null
   
 )
@@ -90258,19 +91030,35 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/admin/pages/Partidas/Lista.vue?vue&type=template&id=6ee9412a&":
-/*!***********************************************************************************************!*\
-  !*** ./resources/js/components/admin/pages/Partidas/Lista.vue?vue&type=template&id=6ee9412a& ***!
-  \***********************************************************************************************/
+/***/ "./resources/js/components/admin/pages/Partidas/Lista.vue?vue&type=style&index=0&id=6ee9412a&scoped=true&lang=css&":
+/*!*************************************************************************************************************************!*\
+  !*** ./resources/js/components/admin/pages/Partidas/Lista.vue?vue&type=style&index=0&id=6ee9412a&scoped=true&lang=css& ***!
+  \*************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Lista_vue_vue_type_style_index_0_id_6ee9412a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/style-loader!../../../../../../node_modules/css-loader??ref--6-1!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Lista.vue?vue&type=style&index=0&id=6ee9412a&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/pages/Partidas/Lista.vue?vue&type=style&index=0&id=6ee9412a&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Lista_vue_vue_type_style_index_0_id_6ee9412a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Lista_vue_vue_type_style_index_0_id_6ee9412a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Lista_vue_vue_type_style_index_0_id_6ee9412a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Lista_vue_vue_type_style_index_0_id_6ee9412a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/pages/Partidas/Lista.vue?vue&type=template&id=6ee9412a&scoped=true&":
+/*!***********************************************************************************************************!*\
+  !*** ./resources/js/components/admin/pages/Partidas/Lista.vue?vue&type=template&id=6ee9412a&scoped=true& ***!
+  \***********************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Lista_vue_vue_type_template_id_6ee9412a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Lista.vue?vue&type=template&id=6ee9412a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/pages/Partidas/Lista.vue?vue&type=template&id=6ee9412a&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Lista_vue_vue_type_template_id_6ee9412a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Lista_vue_vue_type_template_id_6ee9412a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Lista.vue?vue&type=template&id=6ee9412a&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/pages/Partidas/Lista.vue?vue&type=template&id=6ee9412a&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Lista_vue_vue_type_template_id_6ee9412a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Lista_vue_vue_type_template_id_6ee9412a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Lista_vue_vue_type_template_id_6ee9412a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

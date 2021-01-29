@@ -64,4 +64,24 @@ class Partida extends Model{
         
         return DB::select(DB::raw($sql));
     }
+
+    public function getPartidas($idTemporada)
+    {
+        $sql = "select
+                    p.data,
+                    t1.nome as mandante,
+                    p.placarMandante,
+                    p.placarVisitante,
+                    t2.nome as visitante
+                from
+                    partidas p
+                    join times t1 on t1.id = p.idMandante
+                    join times t2 on t2.id = p.idVisitante
+                where
+                    p.idTemporada = $idTemporada
+                order by
+                    p.data asc";
+
+        return DB::select(DB::raw($sql));
+    }
 }

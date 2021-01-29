@@ -36,4 +36,11 @@ class TimeController extends Controller
 
         return response()->json(['resultados' => $resultados]);
     }
+
+    public function getTimes()
+    {
+        $times = $this->time->all();
+
+        return $times;
+    }
 }
