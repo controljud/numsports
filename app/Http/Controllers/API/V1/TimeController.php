@@ -39,7 +39,7 @@ class TimeController extends Controller
 
     public function getTimes()
     {
-        $times = $this->time->all();
+        $times = $this->time::orderBy('nome')->get();
 
         return $times;
     }

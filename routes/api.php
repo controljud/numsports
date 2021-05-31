@@ -31,9 +31,13 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API\V1'], function() {
         Route::get('/times', 'TimeController@getTimes');
     });
 
-    
+    Route::group(['prefix' => 'partida'], function() {
+        Route::get('/partidas/{idTemporada}', 'MatchesController@getPartidas');
+        
+        Route::post('/', 'MatchesController@savePartida');
+        Route::post('/delete', 'MatchesController@deletePartida');
+        Route::get('/totalizar/{idTemporada}', 'MatchesController@totalizacaoDados');
+    });
 });
 
-Route::group(['prefix' => 'v1/partida'], function() {
-    Route::get('/partidas/{idTemporada}', 'MatchesController@getPartidas');
-});
+

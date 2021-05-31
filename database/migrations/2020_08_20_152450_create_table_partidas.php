@@ -17,8 +17,8 @@ class CreateTablePartidas extends Migration
             $table->integer('idTemporada');
             $table->integer('idMandante');
             $table->integer('idVisitante');
-            $table->integer('placarMandante');
-            $table->integer('placarVisitante');
+            $table->integer('placarMandante')->nullable();
+            $table->integer('placarVisitante')->nullable();
             $table->timestamp('data');
 
             $table->foreign('idTemporada')->references('id')->on('temporadas');

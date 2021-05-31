@@ -36,12 +36,19 @@
                             <div class="row">
                                 <div class="col-md-2">
                                     <label>Data</label>
-                                    <input type="date" v-model="partida.data" class="form-control">
+                                    <input type="datetime-local" v-model="partida.data" class="form-control">
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <label>Mandante</label>
                                     <v-select :options="times" v-model="partida.mandante" label="nome" code="id" style="margin-top: 3px"></v-select>
                                 </div>
+                                <div class="col-md-2">
+                                    <label>Visitante</label>
+                                    <v-select :options="times" v-model="partida.visitante" label="nome" code="id" style="margin-top: 3px"></v-select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"></div>
                                 <div class="col-md-2">
                                     <label>Gols Mandante</label>
                                     <input type="number" v-model="partida.placarMandante" class="form-control">
@@ -49,10 +56,6 @@
                                 <div class="col-md-2">
                                     <label>Gols Visitante</label>
                                     <input type="number" v-model="partida.placarVisitante" class="form-control">
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Visitante</label>
-                                    <v-select :options="times" v-model="partida.visitante" label="nome" code="id" style="margin-top: 3px"></v-select>
                                 </div>
                             </div>
                             <div class="row" style="margin-top: 15px;">
@@ -69,11 +72,11 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-7">
+                        <div class="col-md-8">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>Data</th><th class="right">Mandante</th><th></th><th></th><th></th><th>Visitante</th><th style="width: 75px">Ações</th>
+                                        <th style="width: 85px">Data</th><th class="right">Mandante</th><th></th><th></th><th></th><th>Visitante</th><th style="width: 75px">Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -85,10 +88,10 @@
                                         <td class="center">{{partida.placarVisitante}}</td>
                                         <td>{{partida.visitante}}</td>
                                         <td>
-                                            <a href="javascript:void(0)" class="btn btn-sm btn-secondary" title="Editar">
+                                            <a href="javascript:void(0)" class="btn btn-sm btn-secondary" title="Editar" v-on:click="editarPartida(partida)">
                                                 <i class="fa fa-edit"></i>
                                             </a>
-                                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" title="Excluir">
+                                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" title="Excluir" v-on:click="excluirPartida(partida)">
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                         </td>
@@ -165,6 +168,7 @@
                 partidaUrl: null,
                 nova: false,
                 partida: {
+                    idTemporada: null,
                     data: null,
                     mandante: null,
                     placarMandante: null,
@@ -178,7 +182,7 @@
         methods: {
             getTemporadas: function() {
                 if (this.campeonato != null) {
-                    axios.get('/numsports/public/api/v1/campeonato/temporadas/' + this.campeonato.id).then(response => {
+                    axios.get('/api/v1/campeonato/temporadas/' + this.campeonato.id).then(response => {
                         this.temporadas = response.data;
                     });
                 } else {
@@ -192,7 +196,7 @@
             },
 
             getPartidas: function() {
-                let url = '/numsports/public/api/v1/partida/partidas/' + this.temporada.id
+                let url = '/api/v1/partida/partidas/' + this.temporada.id
                 
                 if (this.partidaUrl != null) {
                     url = this.partidaUrl;
@@ -201,7 +205,6 @@
                 if (this.campeonato != null) {
                     axios.get(url).then(response => {
                         this.partidas = response.data;
-                        console.log(response.data);
                     });
                 } else {
                     this.partidas = [];
@@ -209,18 +212,40 @@
             },
 
             openCadastro(){
-                axios.get('/numsports/public/api/v1/time/times').then(response => {
+                axios.get('/api/v1/time/times').then(response => {
                     this.times = response.data;
                 });
                 this.nova = true;
             },
 
+            editarPartida(partida){
+                this.partida = partida;
+                this.nova = true;
+            },
+
+            excluirPartida(partida){
+                partida.idTemporada = this.temporada.id;
+                
+                axios.post('/api/v1/partida/delete', partida).then(response => {
+                    this.getPartidas();
+                    alert('Partida excluída com sucesso');
+                });
+            },
+
             cadastrarPartida(salvar){
                 if (salvar) {
+                    this.partida.idTemporada = this.temporada.id;
+                    
+                    axios.post('/api/v1/partida', this.partida).then(response => {
+                        console.log(response.data);
+                        // let retorno = response.data;
 
+                        // this.zeraPartida();
+                        // this.getPartidas();
+                    });
+                } else {
+                    this.nova = false;
                 }
-                
-                this.nova = false;
             },
 
             format_date(value){
@@ -228,6 +253,14 @@
                     return moment(String(value)).format('DD/MM/YYYY');
                 }
             },
+
+            zeraPartida(){
+                this.partida.idTemporada = null;
+                this.partida.mandante = null;
+                this.partida.placarMandante = null;
+                this.partida.placarVisitante = null;
+                this.partida.visitante = null;
+            }
         }
     }
 </script>

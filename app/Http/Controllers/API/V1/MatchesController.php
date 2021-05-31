@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
 use App\Services\UpdateServiceFutebol;
@@ -24,7 +24,6 @@ class MatchesController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
         $this->updateService = new UpdateServiceFutebol;
 
         $this->campeonato = new Campeonato;
@@ -60,7 +59,9 @@ class MatchesController extends Controller
 
     private function totalizarDados($idTemporada)
     {   
+        set_time_limit(0);
         $times = $this->time->getTimesCampeonato($idTemporada);
+        //$this->totalPontos::where('idTemporada', $idTemporada)->delete();
 
         $dados = array();
         $partidas = Partida::where('idTemporada', $idTemporada)->get();
@@ -212,10 +213,13 @@ class MatchesController extends Controller
 
     public function savePartida(Request $request)
     {
+        session()->regenerate();
+        return csrf_token();
+
         $partida = $request->all();
 
-        $partida['idMandante'] = is_array($partida['mandante']) ? $partida['mandante']['id'] : $partida['idMandante'];
-        $partida['idVisitante'] = is_array($partida['visitante']) ? $partida['visitante']['id'] : $partida['idVisitante'];
+        $partida['idMandante'] = isset($partida['mandante']) && is_array($partida['mandante']) ? $partida['mandante']['id'] : $partida['idMandante'];
+        $partida['idVisitante'] = isset($partida['visitante']) && is_array($partida['visitante']) ? $partida['visitante']['id'] : $partida['idVisitante'];
         $partida['placarMandante'] = $partida['placarMandante'] != '' ? $partida['placarMandante'] : null;
         $partida['placarVisitante'] = $partida['placarVisitante'] != '' ? $partida['placarVisitante'] : null;
 
@@ -243,5 +247,18 @@ class MatchesController extends Controller
             'message' => 'Partida cadastrada com sucesso',
             'data' => $partida
         ];
+    }
+
+    public function deletePartida(Request $request)
+    {
+        $partida = $request->all();
+        
+        $partida['idMandante'] = isset($partida['mandante']) && is_array($partida['mandante']) ? $partida['mandante']['id'] : $partida['idMandante'];
+        $partida['idVisitante'] = isset($partida['visitante']) && is_array($partida['visitante']) ? $partida['visitante']['id'] : $partida['idVisitante'];
+
+        $this->partida::where('idTemporada', $partida['idTemporada'])
+            ->where('idMandante', $partida['idMandante'])
+            ->where('idVisitante', $partida['idVisitante'])
+            ->delete();
     }
 }

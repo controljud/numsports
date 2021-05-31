@@ -29,7 +29,7 @@
         
         methods: {
             getCampeonatos: function() {
-                axios.get('/numsports/public/api/v1/campeonato/campeonatos').then(response => {
+                axios.get('/api/v1/campeonato/campeonatos').then(response => {
                     this.campeonatos = response.data;
                 });
             },

@@ -103,14 +103,14 @@
 
         methods: {
             getPosicaoDinamica: function(idTemporada) {
-                axios.get('/numsports/public/api/v1/campeonato/posicao/dinamica/' + idTemporada).then(response => {
+                axios.get('api/v1/campeonato/posicao/dinamica/' + idTemporada).then(response => {
                     this.graphLabels = response.data.labels;
                     this.graphDataset = response.data.dataset;
                 });
             },
 
             getPosicaoGeral: function(idTemporada) {
-                axios.get('/numsports/public/api/v1/campeonato/posicao/geral/' + idTemporada).then(response => {
+                axios.get('api/v1/campeonato/posicao/geral/' + idTemporada).then(response => {
                     this.posicoes = response.data.posicao_geral;
                     this.maxPartidas = response.data.max_partidas;
                     this.campeonato = response.data.campeonato;
@@ -120,7 +120,7 @@
             },
 
             getTemporadas: function() {
-                axios.get('/numsports/public/api/v1/campeonato/temporadas/1').then(response => {
+                axios.get('api/v1/campeonato/temporadas/1').then(response => {
                     this.temporadas = response.data;
                     this.setTemporadaAtiva(true);
                 });

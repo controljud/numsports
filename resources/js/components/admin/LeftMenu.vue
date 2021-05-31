@@ -20,24 +20,17 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
           <li class="nav-item">
-            <a href="admin/partidas" class="nav-link">
+            <router-link :to="{name: 'partidas'}" class="nav-link" exact>
               <i class="nav-icon fas fa-th"></i>
-              <p>Partidas</p>
-            </a>
+              Partidas
+            </router-link>
           </li>
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>Times</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-bars"></i>
-              <p>Temporadas</p>
-            </a>
+            <router-link :to="{name: 'times'}" class="nav-link" exact>
+              <i class="nav-icon fas fa-flag"></i>
+              Times
+            </router-link>
           </li>
           <li class="nav-item">
             <a href="pages/widgets.html" class="nav-link">
@@ -61,6 +54,16 @@
     export default {
         props: [
             'userName'
-        ]
+        ],
+
+        data() {
+            return {
+                app_url: process.env.APP_URL
+            }
+        },
+
+        created() {
+            console.log(this.app_url);
+        }
     }
 </script>
