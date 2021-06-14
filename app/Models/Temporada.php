@@ -12,8 +12,9 @@ class Temporada extends Model
     public function getTemporadas($idCampeonato)
     {
         return $this::select('temporadas.id', 'temporadas.temporada', 'temporadas.status')
-            ->join('partidas', 'partidas.idTemporada', 'temporadas.id')
+            //->join('partidas', 'partidas.idTemporada', 'temporadas.id')
             ->where('idCampeonato', $idCampeonato)
+            ->orderBy('temporada', 'desc')
             ->distinct()->get();
     }
 }

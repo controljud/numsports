@@ -213,9 +213,6 @@ class MatchesController extends Controller
 
     public function savePartida(Request $request)
     {
-        session()->regenerate();
-        return csrf_token();
-
         $partida = $request->all();
 
         $partida['idMandante'] = isset($partida['mandante']) && is_array($partida['mandante']) ? $partida['mandante']['id'] : $partida['idMandante'];
@@ -240,7 +237,7 @@ class MatchesController extends Controller
                 ->update($partida);
         }
         
-        //$this->totalizarDados($partida['idTemporada']);
+        $this->totalizarDados($partida['idTemporada']);
 
         return [
             'status' => 1,

@@ -2417,12 +2417,16 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     cadastrarPartida: function cadastrarPartida(salvar) {
+      var _this5 = this;
+
       if (salvar) {
         this.partida.idTemporada = this.temporada.id;
         axios.post('/api/v1/partida', this.partida).then(function (response) {
-          console.log(response.data); // let retorno = response.data;
-          // this.zeraPartida();
-          // this.getPartidas();
+          var retorno = response.data;
+
+          _this5.zeraPartida();
+
+          _this5.getPartidas();
         });
       } else {
         this.nova = false;

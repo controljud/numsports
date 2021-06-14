@@ -237,11 +237,10 @@
                     this.partida.idTemporada = this.temporada.id;
                     
                     axios.post('/api/v1/partida', this.partida).then(response => {
-                        console.log(response.data);
-                        // let retorno = response.data;
+                        let retorno = response.data;
 
-                        // this.zeraPartida();
-                        // this.getPartidas();
+                        this.zeraPartida();
+                        this.getPartidas();
                     });
                 } else {
                     this.nova = false;
