@@ -12,6 +12,7 @@ use App\Models\Time;
 use App\Models\TotalPontos;
 use App\Models\Posicao;
 use DB;
+use Exception;
 
 class MatchesController extends Controller
 {
@@ -24,7 +25,7 @@ class MatchesController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
         $this->updateService = new UpdateServiceFutebol;
 
         $this->campeonato = new Campeonato;
@@ -183,12 +184,13 @@ class MatchesController extends Controller
 
         $grafico[] = $linhas;
         $grafico[] = ($countPosicoes * 2) - 2;
+        Log::info(json_encode($grafico));
 
-        $posicao = new Posicao;
-        $posicao->idTemporada = $idTemporada;
-        $posicao->idTime = $idTime;
-        $posicao->nomeTime = $nomeTime;
-        $posicao->save();
+        // $posicao = new Posicao;
+        // $posicao->idTemporada = $idTemporada;
+        // $posicao->idTime = $idTime;
+        // $posicao->nomeTime = $nomeTime;
+        // $posicao->save();
     }
 
     public function getPartidas(Request $request, $idTemporada)

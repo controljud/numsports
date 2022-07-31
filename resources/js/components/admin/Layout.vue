@@ -2,6 +2,9 @@
     <div>
 		<top-menu></top-menu>
 		<left-menu></left-menu>
+        <transition name="fade" mode="out-in">
+			<router-view></router-view>
+		</transition>
     </div>
 </template>
 

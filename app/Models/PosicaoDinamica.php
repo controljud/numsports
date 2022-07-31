@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class PosicaoDinamica extends Model
 {
@@ -14,7 +14,6 @@ class PosicaoDinamica extends Model
     {
         $sql = "select
                     tp.idTime,
-                    @contador := @contador + 1 AS posicao,
                     t.nome as nomeTime,
                     t.cor as corTime,
                     tp.pontos,
@@ -26,7 +25,6 @@ class PosicaoDinamica extends Model
                     tp.golsSofridos,
                     tp.saldo
                 from
-                    (SELECT @contador := 0) AS tabela_auxiliar,
                     total_pontos tp
                     join times t on t.id = tp.idTime
                 where
@@ -36,7 +34,7 @@ class PosicaoDinamica extends Model
                     tp.pontos desc,
                     tp.vitorias desc,
                     tp.saldo desc,
-                    tp.golsFeitos desc";
+                    tp.golsFeitos desc;";
         
         return DB::select(DB::raw($sql));
     }

@@ -11,7 +11,7 @@ use App\Models\Campeonato;
 use App\Models\Time;
 use App\Models\TotalPontos;
 use App\Models\Posicao;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class MatchesController extends Controller
 {

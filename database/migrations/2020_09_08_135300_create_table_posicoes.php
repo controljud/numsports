@@ -14,8 +14,8 @@ class CreateTablePosicoes extends Migration
     public function up()
     {
         Schema::create('posicoes', function (Blueprint $table) {
-            $table->integer('idTemporada');
-            $table->integer('idTime');
+            $table->unsignedBigInteger('idTemporada');
+            $table->unsignedBigInteger('idTime');
             $table->string('nomeTime');
             $table->integer('posicao');
             

@@ -18,7 +18,9 @@ class TemporadasSeeder extends Seeder
         $campeonato->save();
         
         DB::table('temporadas')->insert([
-            ['idCampeonato' => $campeonato->id, 'temporada' => '2020 - 2021', 'divisao' => 'Série A', 'sexo' => 'm', 'apelido' => 'Brasileirão', 'url' => 'https://chancedegol.com.br/br20.htm', 'status' => 1],
+            ['idCampeonato' => $campeonato->id, 'temporada' => '2022', 'divisao' => 'Série A', 'sexo' => 'm', 'apelido' => 'Brasileirão', 'url' => 'https://chancedegol.com.br/br22.htm', 'status' => 1],
+            ['idCampeonato' => $campeonato->id, 'temporada' => '2021', 'divisao' => 'Série A', 'sexo' => 'm', 'apelido' => 'Brasileirão', 'url' => 'https://chancedegol.com.br/br21.htm', 'status' => 0],
+            ['idCampeonato' => $campeonato->id, 'temporada' => '2020 - 2021', 'divisao' => 'Série A', 'sexo' => 'm', 'apelido' => 'Brasileirão', 'url' => 'https://chancedegol.com.br/br20.htm', 'status' => 0],
             ['idCampeonato' => $campeonato->id, 'temporada' => '2019', 'divisao' => 'Série A', 'sexo' => 'm', 'apelido' => 'Brasileirão', 'url' => 'https://chancedegol.com.br/br19.htm', 'status' => 0],
             ['idCampeonato' => $campeonato->id, 'temporada' => '2018', 'divisao' => 'Série A', 'sexo' => 'm', 'apelido' => 'Brasileirão', 'url' => 'https://chancedegol.com.br/br18.htm', 'status' => 0],
             ['idCampeonato' => $campeonato->id, 'temporada' => '2017', 'divisao' => 'Série A', 'sexo' => 'm', 'apelido' => 'Brasileirão', 'url' => 'https://chancedegol.com.br/br17.htm', 'status' => 0],

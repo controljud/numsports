@@ -103,9 +103,13 @@
 
         methods: {
             getPosicaoDinamica: function(idTemporada) {
+                console.log('Veio aqui', idTemporada);
                 axios.get('api/v1/campeonato/posicao/dinamica/' + idTemporada).then(response => {
+                    console.log('Deu certo: ', response);
                     this.graphLabels = response.data.labels;
                     this.graphDataset = response.data.dataset;
+                }).catch(error => {
+                    console.log('Deu ruim: ', error);
                 });
             },
 

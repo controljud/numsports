@@ -14,8 +14,8 @@ class CreateTableTotalPontos extends Migration
     public function up()
     {
         Schema::create('total_pontos', function (Blueprint $table) {
-            $table->integer('idTemporada');
-            $table->integer('idTime');
+            $table->unsignedBigInteger('idTemporada');
+            $table->unsignedBigInteger('idTime');
             $table->integer('numPartida');
             $table->integer('pontos');
             $table->integer('vitorias');

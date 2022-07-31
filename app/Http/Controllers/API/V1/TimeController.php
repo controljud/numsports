@@ -10,7 +10,6 @@ use App\Models\Campeonato;
 use App\Models\Time;
 use App\Models\TotalPontos;
 use App\Models\PosicaoDinamica;
-use DB;
 
 class TimeController extends Controller
 {

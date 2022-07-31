@@ -22,6 +22,12 @@
                             Nova
                         </a>
                     </div>
+                    <div class="col-md-2" style="text-align: right; padding-top: 30px">
+                        <a v-if="partidas.data" href="javascript:void(0)" class="btn btn-sm btn-success" v-on:click="importPartidas">
+                            <i class="fa fa-download"></i>
+                            Importar
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -245,6 +251,10 @@
                 } else {
                     this.nova = false;
                 }
+            },
+
+            importPartidas() {
+                
             },
 
             format_date(value){

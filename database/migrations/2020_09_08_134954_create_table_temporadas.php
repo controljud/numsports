@@ -15,7 +15,7 @@ class CreateTableTemporadas extends Migration
     {
         Schema::create('temporadas', function (Blueprint $table) {
             $table->id();
-            $table->integer('idCampeonato');
+            $table->unsignedBigInteger('idCampeonato');
             $table->string('temporada');
             $table->string('divisao')->default('1');
             $table->string('sexo');

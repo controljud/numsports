@@ -11,7 +11,7 @@ use App\Models\Temporada;
 use App\Models\Time;
 use App\Models\TotalPontos;
 use App\Models\PosicaoDinamica;
-use DB;
+use Exception;
 
 class CampeonatoController extends Controller
 {
@@ -66,21 +66,23 @@ class CampeonatoController extends Controller
             for ($i = 1; $i <= ($maxPartida + 1); $i++) {
                 $posicaoDin = $this->posicaoDinamica->getPosicaoRodada($idTemporada, $i);
 
+                $x = 1;
                 foreach ($posicaoDin as $posicao) {
                     if (isset ($times[$posicao->nomeTime])) {
                         $data = $times[$posicao->nomeTime]['data'];
-                        $times[$posicao->nomeTime]['data'][] = $posicao->posicao;
-                        $times[$posicao->nomeTime]['posicao'] = $posicao->posicao;
+                        $times[$posicao->nomeTime]['data'][] = $x;
+                        $times[$posicao->nomeTime]['posicao'] = $x;
                     } else {
                         $times[$posicao->nomeTime] = [
                             'label' => $posicao->nomeTime,
-                            'data' => [$posicao->posicao],
+                            'data' => [$x],
                             'backgroundColor' => "transparent",
                             'borderColor' => $posicao->corTime ? $posicao->corTime : "#cdcdcd",
                             'pointBackgroundColor' => $posicao->corTime ? $posicao->corTime : "#cdcdcd",
-                            'posicao' => $posicao->posicao
+                            'posicao' => $x
                         ];
                     }
+                    $x++;
                 }
             }
             

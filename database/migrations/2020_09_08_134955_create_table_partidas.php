@@ -14,9 +14,9 @@ class CreateTablePartidas extends Migration
     public function up()
     {
         Schema::create('partidas', function (Blueprint $table) {
-            $table->integer('idTemporada');
-            $table->integer('idMandante');
-            $table->integer('idVisitante');
+            $table->unsignedBigInteger('idTemporada');
+            $table->unsignedBigInteger('idMandante');
+            $table->unsignedBigInteger('idVisitante');
             $table->integer('placarMandante')->nullable();
             $table->integer('placarVisitante')->nullable();
             $table->timestamp('data');

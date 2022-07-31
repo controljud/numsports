@@ -14,7 +14,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12 col-sm-6 col-md-3">
-                        <div class="info-box mb-3">
+                        <div class="info-box mb-3" @click="openPartidas()">
                             <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-calendar"></i></span>
 
                             <div class="info-box-content">
@@ -61,7 +61,19 @@
 </template>
 
 <script>
+import router from '../../router'
+
     export default {
-        
+        methods: {
+            openPartidas() {
+                router.push('/admin/partidas');
+            }
+        }
     }
 </script>
+
+<style>
+.info-box {
+    cursor: pointer;
+}
+</style>
