@@ -16,8 +16,8 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="posicao of posicoes" :key="posicao.idTime">
-                <td class='center'>{{posicao.posicao}}</td>
+            <tr v-for="(posicao, index) of posicoes" :key="index">
+                <td class='center'>{{index + 1}}</td>
                 <td><a href="javascript:void(0)">{{posicao.nomeTime}}</a></td>
                 <td class='center'>{{posicao.pontos}}</td>
                 <td class='center'>{{posicao.numPartida}}</td>

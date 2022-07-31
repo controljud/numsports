@@ -1,7 +1,9 @@
 <template>
 	<div>
 		<layout></layout>
-		<dash-board></dash-board>
+		<transition name="fade" mode="out-in">
+			<router-view></router-view>
+		</transition>
 	</div>
 </template>
 
