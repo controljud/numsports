@@ -21,25 +21,25 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <router-link :to="{name: 'partidas'}" class="nav-link" exact>
+            <router-link :to="{name: 'admin.partidas'}" class="nav-link" exact>
               <i class="nav-icon fas fa-th"></i>
               Partidas
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link :to="{name: 'times'}" class="nav-link" exact>
+            <router-link :to="{name: 'admin.times'}" class="nav-link" exact>
               <i class="nav-icon fas fa-flag"></i>
               Times
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link :to="{name: 'times'}" class="nav-link" exact>
+            <router-link :to="{name: 'admin.times'}" class="nav-link" exact>
               <i class="nav-icon fas fa-trophy"></i>
               Campeonatos
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link :to="{name: 'times'}" class="nav-link" exact>
+            <router-link :to="{name: 'admin.times'}" class="nav-link" exact>
               <i class="nav-icon fas fa-users"></i>
               Usuários
             </router-link>

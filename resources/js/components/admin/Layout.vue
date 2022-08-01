@@ -1,9 +1,6 @@
 <template>
     <div>
-		<left-menu></left-menu>
-        <transition name="fade" mode="out-in">
-			<router-view></router-view>
-		</transition>
+		  <left-menu></left-menu>
     </div>
 </template>
 
@@ -11,8 +8,8 @@
 	import LeftMenu from './LeftMenu';
     
     export default {
-        components: {
-			'left-menu': LeftMenu
-		}
+      components: {
+        'left-menu': LeftMenu
+      }
     }
 </script>
