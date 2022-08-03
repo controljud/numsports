@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/data/{idTemporada}', 'MatchesController@getDataFutebolBrasileiro');
+Route::get('/partida/totalizar/{idTemporada}', 'MatchesController@totalizarDados');
 Route::get('/posicoes-dinamicas', 'CampeonatoController@getPosicoesDinamicas');
 
 Route::get('/campeonato/{idTemporada}', 'CampeonatoController@index');

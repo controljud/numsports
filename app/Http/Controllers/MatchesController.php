@@ -11,7 +11,7 @@ use App\Models\Campeonato;
 use App\Models\Time;
 use App\Models\TotalPontos;
 use App\Models\Posicao;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Exception;
 
 class MatchesController extends Controller
@@ -45,6 +45,7 @@ class MatchesController extends Controller
         set_time_limit(0);
         $campeonato = $this->campeonato->getCampeonato($idTemporada);
         $eventos = $this->updateService->getDataFutebolBrasileiroMasculino($campeonato);
+        return response()->json($eventos);
 
         foreach ($eventos as $evento) {
             $mandante = $this->time->getTime($evento['mandante']);
@@ -54,12 +55,11 @@ class MatchesController extends Controller
         }
 
         $this->totalizarDados($campeonato->id);
-        //$this->setPosicoesDinamicas($campeonato->id);
         
         return response()->json(['message' => 'Dados atualizados com sucesso - ' . $campeonato->nome . ': ' . $campeonato->temporada]);
     }
 
-    private function totalizarDados($idTemporada)
+    public function totalizarDados($idTemporada)
     {   
         $times = $this->time->getTimesCampeonato($idTemporada);
 

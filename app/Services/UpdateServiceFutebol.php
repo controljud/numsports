@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Carbon\Carbon;
+use Exception;
 
 class UpdateServiceFutebol {
     public function getDataFutebolBrasileiroMasculino($campeonato)
@@ -50,8 +51,12 @@ class UpdateServiceFutebol {
 
     private function getDataFutebolBrasileiroAnteriores($url)
     {
-        $site = file_get_contents($url);
+        $site = utf8_encode(file_get_contents($url));
         $site = str_replace('"', "'", $site);
+        $site = str_ireplace(array("\r"), "", $site);
+
+        // $site = utf8_decode($site);2
+        return mb_detect_encoding($site);
 
         $dt01 = explode("<table", $site);
 

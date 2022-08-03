@@ -1,6 +1,5 @@
 <template>
     <div>
-        <layout></layout>
         <lista
             :campeonatos="campeonatos"
         ></lista>

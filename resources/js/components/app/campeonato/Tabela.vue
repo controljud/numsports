@@ -28,11 +28,13 @@
                 <td class='center'>{{posicao.golsSofridos}}</td>
                 <td class='center'>{{posicao.saldo}}</td>
                 <td class='center'>
-                    <span v-for="(resultado, index) of posicao.resultados" :key="index">
-                        <img v-if="resultado.resultado == 3" src="images/check.png" class="imgResult"/>
-                        <img v-if="resultado.resultado == 1" src="images/minus.png" class="imgResult"/>
-                        <img v-if="resultado.resultado == 0" src="images/cancel.png" class="imgResult"/>
-                    </span>
+                    <div class="btn-group mr-2" role="group" aria-label="First group">
+                        <button type="button" v-for="(resultado, index) of posicao.resultados" :key="index" class="btn btn-smi btn-light">
+                            <img v-if="resultado.resultado == 3" src="images/check.png" class="imgResult"/>
+                            <img v-if="resultado.resultado == 1" src="images/minus.png" class="imgResult"/>
+                            <img v-if="resultado.resultado == 0" src="images/cancel.png" class="imgResult"/>
+                        </button>
+                    </div>
                 </td>
             </tr>
         </tbody>
@@ -43,6 +45,37 @@
     export default {
         props: [
             'posicoes'
-        ]
+        ],
+
+        methods: {
+            getClass(resultado) {
+                if (resultado.resultado == 3) {
+                    return 'btn btn-smi btn-success';
+                } else if (resultado.resultado == 1) {
+                    return 'btn btn-smi btn-secondary';
+                } else {
+                    return 'btn btn-smi btn-danger';
+                }
+            },
+
+            getSymbol(resultado) {
+                if (resultado.resultado == 3) {
+                    return 'btn btn-smi btn-success';
+                } else if (resultado.resultado == 1) {
+                    return 'btn btn-smi btn-secondary';
+                } else {
+                    return 'btn btn-smi btn-danger';
+                }
+            }
+        }
     }
 </script>
+
+<style>
+.btn-smi {
+    padding: 0.08rem 0.1rem;
+    font-size: 0.475rem;
+    line-height: 0.6;
+    border-radius: 0.05rem;
+}
+</style>
