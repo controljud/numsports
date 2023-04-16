@@ -7,13 +7,11 @@
 </template>
 
 <script>
-    import Layout from './../../../admin/Layout'
-    import Lista from './Lista'
+    import Lista from './Lista';
     
     export default {
         components: {
-            Layout,
-            Lista
+            'lista': Lista,
         },
 
         data() {

@@ -2199,6 +2199,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_select_dist_vue_select_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_select_dist_vue_select_css__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _NovaPartidaModal_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./NovaPartidaModal.vue */ "./resources/js/components/admin/pages/Partidas/NovaPartidaModal.vue");
 //
 //
 //
@@ -2351,6 +2352,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+
 
 
 
@@ -2358,7 +2365,8 @@ __webpack_require__.r(__webpack_exports__);
   props: ['campeonatos'],
   components: {
     vSelect: vue_select__WEBPACK_IMPORTED_MODULE_0___default.a,
-    moment: moment__WEBPACK_IMPORTED_MODULE_2___default.a
+    moment: moment__WEBPACK_IMPORTED_MODULE_2___default.a,
+    'nova-partida-modal': _NovaPartidaModal_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   data: function data() {
     return {
@@ -2376,10 +2384,17 @@ __webpack_require__.r(__webpack_exports__);
         placarVisitante: null,
         visitante: null
       },
-      times: []
+      times: [],
+      novaPartidaModal: false
     };
   },
   methods: {
+    showNovaPartidaModal: function showNovaPartidaModal() {
+      this.novaPartidaModal = true;
+    },
+    closeNovaPartidaModal: function closeNovaPartidaModal() {
+      this.novaPartidaModal = false;
+    },
     getTemporadas: function getTemporadas() {
       var _this = this;
 
@@ -2468,6 +2483,39 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/pages/Partidas/NovaPartidaModal.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/pages/Partidas/NovaPartidaModal.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/pages/Partidas/Partidas.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/pages/Partidas/Partidas.vue?vue&type=script&lang=js& ***!
@@ -2477,8 +2525,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _admin_Layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../admin/Layout */ "./resources/js/components/admin/Layout.vue");
-/* harmony import */ var _Lista__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Lista */ "./resources/js/components/admin/pages/Partidas/Lista.vue");
+/* harmony import */ var _Lista__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Lista */ "./resources/js/components/admin/pages/Partidas/Lista.vue");
 //
 //
 //
@@ -2487,12 +2534,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    Layout: _admin_Layout__WEBPACK_IMPORTED_MODULE_0__["default"],
-    Lista: _Lista__WEBPACK_IMPORTED_MODULE_1__["default"]
+    'lista': _Lista__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {
@@ -77374,680 +77419,697 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "content-wrapper" }, [
-    _c("div", { staticClass: "content-header" }, [
-      _c("div", { staticClass: "container-fluid" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c(
-            "div",
-            { staticClass: "col-md-4" },
-            [
-              _c("label", [_vm._v("Campeonato")]),
-              _vm._v(" "),
-              _c("v-select", {
-                attrs: { options: _vm.campeonatos, label: "nome", code: "id" },
-                on: { input: _vm.getTemporadas },
-                model: {
-                  value: _vm.campeonato,
-                  callback: function($$v) {
-                    _vm.campeonato = $$v
+  return _c(
+    "div",
+    { staticClass: "content-wrapper" },
+    [
+      _c("div", { staticClass: "content-header" }, [
+        _c("div", { staticClass: "container-fluid" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c(
+              "div",
+              { staticClass: "col-md-4" },
+              [
+                _c("label", [_vm._v("Campeonato")]),
+                _vm._v(" "),
+                _c("v-select", {
+                  attrs: {
+                    options: _vm.campeonatos,
+                    label: "nome",
+                    code: "id"
                   },
-                  expression: "campeonato"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "col-md-4" },
-            [
-              _c("label", [_vm._v("Temporada")]),
-              _vm._v(" "),
-              _c("v-select", {
-                attrs: {
-                  options: _vm.temporadas,
-                  label: "temporada",
-                  code: "id"
-                },
-                on: { input: _vm.getPartidas },
-                model: {
-                  value: _vm.temporada,
-                  callback: function($$v) {
-                    _vm.temporada = $$v
+                  on: { input: _vm.getTemporadas },
+                  model: {
+                    value: _vm.campeonato,
+                    callback: function($$v) {
+                      _vm.campeonato = $$v
+                    },
+                    expression: "campeonato"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-md-4" },
+              [
+                _c("label", [_vm._v("Temporada")]),
+                _vm._v(" "),
+                _c("v-select", {
+                  attrs: {
+                    options: _vm.temporadas,
+                    label: "temporada",
+                    code: "id"
                   },
-                  expression: "temporada"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "col-md-2",
-              staticStyle: { "text-align": "right", "padding-top": "30px" }
-            },
-            [
-              _vm.partidas.data
-                ? _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-sm btn-primary",
-                      attrs: { href: "javascript:void(0)" },
-                      on: { click: _vm.openCadastro }
+                  on: { input: _vm.getPartidas },
+                  model: {
+                    value: _vm.temporada,
+                    callback: function($$v) {
+                      _vm.temporada = $$v
                     },
-                    [
-                      _c("i", { staticClass: "fa fa-plus" }),
-                      _vm._v(
-                        "\n                        Nova\n                    "
-                      )
-                    ]
-                  )
-                : _vm._e()
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "col-md-2",
-              staticStyle: { "text-align": "right", "padding-top": "30px" }
-            },
-            [
-              _vm.partidas.data
-                ? _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-sm btn-success",
-                      attrs: { href: "javascript:void(0)" },
-                      on: { click: _vm.importPartidas }
-                    },
-                    [
-                      _c("i", { staticClass: "fa fa-download" }),
-                      _vm._v(
-                        "\n                        Importar\n                    "
-                      )
-                    ]
-                  )
-                : _vm._e()
-            ]
-          )
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("section", { staticClass: "content" }, [
-      _c("div", { staticClass: "container-fluid" }, [
-        _vm.partidas.data
-          ? _c("div", [
-              _vm.nova
-                ? _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-md-12" }, [
-                      _c("hr"),
-                      _vm._v(" "),
-                      _c("h3", [_vm._v("Nova Partida")]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "row" }, [
-                        _c("div", { staticClass: "col-md-2" }, [
-                          _c("label", [_vm._v("Data")]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.partida.data,
-                                expression: "partida.data"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: { type: "datetime-local" },
-                            domProps: { value: _vm.partida.data },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.partida,
-                                  "data",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "col-md-2" },
-                          [
-                            _c("label", [_vm._v("Mandante")]),
-                            _vm._v(" "),
-                            _c("v-select", {
-                              staticStyle: { "margin-top": "3px" },
-                              attrs: {
-                                options: _vm.times,
-                                label: "nome",
-                                code: "id"
-                              },
-                              model: {
-                                value: _vm.partida.mandante,
-                                callback: function($$v) {
-                                  _vm.$set(_vm.partida, "mandante", $$v)
-                                },
-                                expression: "partida.mandante"
-                              }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "col-md-2" },
-                          [
-                            _c("label", [_vm._v("Visitante")]),
-                            _vm._v(" "),
-                            _c("v-select", {
-                              staticStyle: { "margin-top": "3px" },
-                              attrs: {
-                                options: _vm.times,
-                                label: "nome",
-                                code: "id"
-                              },
-                              model: {
-                                value: _vm.partida.visitante,
-                                callback: function($$v) {
-                                  _vm.$set(_vm.partida, "visitante", $$v)
-                                },
-                                expression: "partida.visitante"
-                              }
-                            })
-                          ],
-                          1
+                    expression: "temporada"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "col-md-2",
+                staticStyle: { "text-align": "right", "padding-top": "30px" }
+              },
+              [
+                _vm.partidas.data
+                  ? _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-sm btn-primary",
+                        attrs: { href: "javascript:void(0)" },
+                        on: { click: _vm.showNovaPartidaModal }
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa-plus" }),
+                        _vm._v(
+                          "\n                        Nova\n                    "
                         )
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "row" }, [
-                        _c("div", { staticClass: "col-md-2" }),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-md-2" }, [
-                          _c("label", [_vm._v("Gols Mandante")]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.partida.placarMandante,
-                                expression: "partida.placarMandante"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: { type: "number" },
-                            domProps: { value: _vm.partida.placarMandante },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.partida,
-                                  "placarMandante",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-md-2" }, [
-                          _c("label", [_vm._v("Gols Visitante")]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.partida.placarVisitante,
-                                expression: "partida.placarVisitante"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: { type: "number" },
-                            domProps: { value: _vm.partida.placarVisitante },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.partida,
-                                  "placarVisitante",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          })
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "row",
-                          staticStyle: { "margin-top": "15px" }
-                        },
-                        [
-                          _c("div", { staticClass: "col-md-4" }, [
-                            _c(
-                              "a",
-                              {
-                                staticClass: "btn btn-light btn-sm",
-                                attrs: { href: "javascript:void(0)" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.cadastrarPartida(false)
-                                  }
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                    Cancelar\n                                "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "a",
-                              {
-                                staticClass: "btn btn-success btn-sm",
-                                attrs: { href: "javascript:void(0)" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.cadastrarPartida(true)
-                                  }
-                                }
-                              },
-                              [
-                                _c("i", { staticClass: "fa fa-save" }),
-                                _vm._v(
-                                  " Salvar\n                                "
-                                )
-                              ]
-                            )
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("hr")
-                    ])
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-8" }, [
-                  _c("table", { staticClass: "table" }, [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _c(
-                      "tbody",
-                      _vm._l(_vm.partidas.data, function(partida, index) {
-                        return _c("tr", { key: index }, [
-                          _c("td", [
-                            _vm._v(_vm._s(_vm.format_date(partida.data)))
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "right" }, [
-                            _vm._v(_vm._s(partida.mandante))
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "center" }, [
-                            _vm._v(_vm._s(partida.placarMandante))
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "center" }, [_vm._v("X")]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "center" }, [
-                            _vm._v(_vm._s(partida.placarVisitante))
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(partida.visitante))]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c(
-                              "a",
-                              {
-                                staticClass: "btn btn-sm btn-secondary",
-                                attrs: {
-                                  href: "javascript:void(0)",
-                                  title: "Editar"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.editarPartida(partida)
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "fa fa-edit" })]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "a",
-                              {
-                                staticClass: "btn btn-sm btn-danger",
-                                attrs: {
-                                  href: "javascript:void(0)",
-                                  title: "Excluir"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.excluirPartida(partida)
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "fa fa-trash" })]
-                            )
-                          ])
-                        ])
-                      }),
-                      0
+                      ]
                     )
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _vm.partidas.last_page && _vm.partidas.last_page > 1
-                ? _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _vm._v("\n                        Mostrando página "),
-                      _c("b", [_vm._v(_vm._s(_vm.partidas.current_page))]),
-                      _vm._v(" de "),
-                      _c("b", [_vm._v(_vm._s(_vm.partidas.last_page))]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "btn-group btn-group-toggle",
-                          attrs: { "data-toggle": "buttons" }
-                        },
-                        [
-                          _vm.partidas.current_page > 1
-                            ? _c(
-                                "label",
+                  : _vm._e()
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "col-md-2",
+                staticStyle: { "text-align": "right", "padding-top": "30px" }
+              },
+              [
+                _vm.partidas.data
+                  ? _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-sm btn-success",
+                        attrs: { href: "javascript:void(0)" },
+                        on: { click: _vm.importPartidas }
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa-download" }),
+                        _vm._v(
+                          "\n                        Importar\n                    "
+                        )
+                      ]
+                    )
+                  : _vm._e()
+              ]
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("section", { staticClass: "content" }, [
+        _c("div", { staticClass: "container-fluid" }, [
+          _vm.partidas.data
+            ? _c("div", [
+                _vm.nova
+                  ? _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-12" }, [
+                        _c("hr"),
+                        _vm._v(" "),
+                        _c("h3", [_vm._v("Nova Partida")]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-md-2" }, [
+                            _c("label", [_vm._v("Data")]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
                                 {
-                                  staticClass: "btn btn-secondary",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.getPartidasUrl(
-                                        _vm.partidas.first_page_url
-                                      )
-                                    }
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.partida.data,
+                                  expression: "partida.data"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "datetime-local" },
+                              domProps: { value: _vm.partida.data },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
                                   }
-                                },
-                                [
-                                  _c("input", {
-                                    attrs: {
-                                      type: "radio",
-                                      name: "options",
-                                      id: "option1",
-                                      autocomplete: "off",
-                                      checked: ""
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("i", {
-                                    staticClass: "fa fa-fast-backward"
-                                  })
-                                ]
-                              )
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _vm.partidas.current_page > 1
-                            ? _c(
-                                "label",
-                                {
-                                  staticClass: "btn btn-secondary",
-                                  on: {
-                                    click: function($event) {
-                                      _vm.getPartidasUrl(
-                                        _vm.partidas.path +
-                                          "?page=" +
-                                          (_vm.partidas.current_page - 1)
-                                      )
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("input", {
-                                    attrs: {
-                                      type: "radio",
-                                      name: "options",
-                                      id: "option1",
-                                      autocomplete: "off",
-                                      checked: ""
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("i", { staticClass: "fa fa-backward" })
-                                ]
-                              )
-                            : _vm._e(),
+                                  _vm.$set(
+                                    _vm.partida,
+                                    "data",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ]),
                           _vm._v(" "),
                           _c(
-                            "label",
-                            {
-                              staticClass: "btn btn-secondary active",
+                            "div",
+                            { staticClass: "col-md-2" },
+                            [
+                              _c("label", [_vm._v("Mandante")]),
+                              _vm._v(" "),
+                              _c("v-select", {
+                                staticStyle: { "margin-top": "3px" },
+                                attrs: {
+                                  options: _vm.times,
+                                  label: "nome",
+                                  code: "id"
+                                },
+                                model: {
+                                  value: _vm.partida.mandante,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.partida, "mandante", $$v)
+                                  },
+                                  expression: "partida.mandante"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "col-md-2" },
+                            [
+                              _c("label", [_vm._v("Visitante")]),
+                              _vm._v(" "),
+                              _c("v-select", {
+                                staticStyle: { "margin-top": "3px" },
+                                attrs: {
+                                  options: _vm.times,
+                                  label: "nome",
+                                  code: "id"
+                                },
+                                model: {
+                                  value: _vm.partida.visitante,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.partida, "visitante", $$v)
+                                  },
+                                  expression: "partida.visitante"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-md-2" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-2" }, [
+                            _c("label", [_vm._v("Gols Mandante")]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.partida.placarMandante,
+                                  expression: "partida.placarMandante"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "number" },
+                              domProps: { value: _vm.partida.placarMandante },
                               on: {
-                                click: function($event) {
-                                  return _vm.getPartidasUrl(
-                                    _vm.partidas.path + "?page=1"
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.partida,
+                                    "placarMandante",
+                                    $event.target.value
                                   )
                                 }
                               }
-                            },
-                            [
-                              _c("input", {
-                                attrs: {
-                                  type: "radio",
-                                  name: "options",
-                                  id: "option1",
-                                  autocomplete: "off",
-                                  checked: ""
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-2" }, [
+                            _c("label", [_vm._v("Gols Visitante")]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.partida.placarVisitante,
+                                  expression: "partida.placarVisitante"
                                 }
-                              }),
-                              _vm._v(" 1\n                            ")
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _vm.partidas.last_page > 1
-                            ? _c(
-                                "label",
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "number" },
+                              domProps: { value: _vm.partida.placarVisitante },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.partida,
+                                    "placarVisitante",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "row",
+                            staticStyle: { "margin-top": "15px" }
+                          },
+                          [
+                            _c("div", { staticClass: "col-md-4" }, [
+                              _c(
+                                "a",
                                 {
-                                  staticClass: "btn btn-secondary",
+                                  staticClass: "btn btn-light btn-sm",
+                                  attrs: { href: "javascript:void(0)" },
                                   on: {
                                     click: function($event) {
-                                      return _vm.getPartidasUrl(
-                                        _vm.partidas.path + "?page=2"
-                                      )
+                                      return _vm.cadastrarPartida(false)
                                     }
                                   }
                                 },
                                 [
-                                  _c("input", {
-                                    attrs: {
-                                      type: "radio",
-                                      name: "options",
-                                      id: "option2",
-                                      autocomplete: "off"
-                                    }
-                                  }),
-                                  _vm._v(" 2\n                            ")
-                                ]
-                              )
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _vm.partidas.last_page > 8
-                            ? _c(
-                                "label",
-                                { staticClass: "btn btn-secondary" },
-                                [
-                                  _c("input", {
-                                    attrs: {
-                                      type: "radio",
-                                      name: "options",
-                                      id: "option3",
-                                      autocomplete: "off"
-                                    }
-                                  }),
-                                  _vm._v(" ...\n                            ")
-                                ]
-                              )
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _vm.partidas.last_page - 3 > 8
-                            ? _c(
-                                "label",
-                                {
-                                  staticClass: "btn btn-secondary",
-                                  on: {
-                                    click: function($event) {
-                                      _vm.getPartidasUrl(
-                                        _vm.partidas.path +
-                                          "?page=" +
-                                          (_vm.partidas.last_page - 1)
-                                      )
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("input", {
-                                    attrs: {
-                                      type: "radio",
-                                      name: "options",
-                                      id: "option1",
-                                      autocomplete: "off",
-                                      checked: ""
-                                    }
-                                  }),
                                   _vm._v(
-                                    " " +
-                                      _vm._s(_vm.partidas.last_page - 1) +
-                                      "\n                            "
+                                    "\n                                    Cancelar\n                                "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "btn btn-success btn-sm",
+                                  attrs: { href: "javascript:void(0)" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.cadastrarPartida(true)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", { staticClass: "fa fa-save" }),
+                                  _vm._v(
+                                    " Salvar\n                                "
                                   )
                                 ]
                               )
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _vm.partidas.last_page - 3 > 8
-                            ? _c(
-                                "label",
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("hr")
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-8" }, [
+                    _c("table", { staticClass: "table" }, [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        _vm._l(_vm.partidas.data, function(partida, index) {
+                          return _c("tr", { key: index }, [
+                            _c("td", [
+                              _vm._v(_vm._s(_vm.format_date(partida.data)))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "right" }, [
+                              _vm._v(_vm._s(partida.mandante))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "center" }, [
+                              _vm._v(_vm._s(partida.placarMandante))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "center" }, [_vm._v("X")]),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "center" }, [
+                              _vm._v(_vm._s(partida.placarVisitante))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(partida.visitante))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c(
+                                "a",
                                 {
-                                  staticClass: "btn btn-secondary",
+                                  staticClass: "btn btn-sm btn-secondary",
+                                  attrs: {
+                                    href: "javascript:void(0)",
+                                    title: "Editar"
+                                  },
                                   on: {
                                     click: function($event) {
-                                      _vm.getPartidasUrl(
-                                        _vm.partidas.path +
-                                          "?page=" +
-                                          _vm.partidas.last_page
-                                      )
+                                      return _vm.editarPartida(partida)
                                     }
                                   }
                                 },
-                                [
-                                  _c("input", {
-                                    attrs: {
-                                      type: "radio",
-                                      name: "options",
-                                      id: "option1",
-                                      autocomplete: "off",
-                                      checked: ""
-                                    }
-                                  }),
-                                  _vm._v(
-                                    " " +
-                                      _vm._s(_vm.partidas.last_page) +
-                                      "\n                            "
-                                  )
-                                ]
-                              )
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _vm.partidas.current_page < _vm.partidas.last_page
-                            ? _c(
-                                "label",
+                                [_c("i", { staticClass: "fa fa-edit" })]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "a",
                                 {
-                                  staticClass: "btn btn-secondary",
+                                  staticClass: "btn btn-sm btn-danger",
+                                  attrs: {
+                                    href: "javascript:void(0)",
+                                    title: "Excluir"
+                                  },
                                   on: {
                                     click: function($event) {
-                                      _vm.getPartidasUrl(
-                                        _vm.partidas.path +
-                                          "?page=" +
-                                          (_vm.partidas.current_page + 1)
-                                      )
+                                      return _vm.excluirPartida(partida)
                                     }
                                   }
                                 },
-                                [
-                                  _c("input", {
-                                    attrs: {
-                                      type: "radio",
-                                      name: "options",
-                                      id: "option1",
-                                      autocomplete: "off",
-                                      checked: ""
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("i", { staticClass: "fa fa-forward" })
-                                ]
+                                [_c("i", { staticClass: "fa fa-trash" })]
                               )
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _vm.partidas.current_page < _vm.partidas.last_page
-                            ? _c(
-                                "label",
-                                {
-                                  staticClass: "btn btn-secondary",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.getPartidasUrl(
-                                        _vm.partidas.last_page_url
-                                      )
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("input", {
-                                    attrs: {
-                                      type: "radio",
-                                      name: "options",
-                                      id: "option1",
-                                      autocomplete: "off",
-                                      checked: ""
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("i", { staticClass: "fa fa-fast-forward" })
-                                ]
-                              )
-                            : _vm._e()
-                        ]
+                            ])
+                          ])
+                        }),
+                        0
                       )
                     ])
                   ])
-                : _vm._e()
-            ])
-          : _vm._e()
-      ])
-    ])
-  ])
+                ]),
+                _vm._v(" "),
+                _vm.partidas.last_page && _vm.partidas.last_page > 1
+                  ? _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _vm._v("\n                        Mostrando página "),
+                        _c("b", [_vm._v(_vm._s(_vm.partidas.current_page))]),
+                        _vm._v(" de "),
+                        _c("b", [_vm._v(_vm._s(_vm.partidas.last_page))]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "btn-group btn-group-toggle",
+                            attrs: { "data-toggle": "buttons" }
+                          },
+                          [
+                            _vm.partidas.current_page > 1
+                              ? _c(
+                                  "label",
+                                  {
+                                    staticClass: "btn btn-secondary",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.getPartidasUrl(
+                                          _vm.partidas.first_page_url
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("input", {
+                                      attrs: {
+                                        type: "radio",
+                                        name: "options",
+                                        id: "option1",
+                                        autocomplete: "off",
+                                        checked: ""
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("i", {
+                                      staticClass: "fa fa-fast-backward"
+                                    })
+                                  ]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.partidas.current_page > 1
+                              ? _c(
+                                  "label",
+                                  {
+                                    staticClass: "btn btn-secondary",
+                                    on: {
+                                      click: function($event) {
+                                        _vm.getPartidasUrl(
+                                          _vm.partidas.path +
+                                            "?page=" +
+                                            (_vm.partidas.current_page - 1)
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("input", {
+                                      attrs: {
+                                        type: "radio",
+                                        name: "options",
+                                        id: "option1",
+                                        autocomplete: "off",
+                                        checked: ""
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("i", { staticClass: "fa fa-backward" })
+                                  ]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _c(
+                              "label",
+                              {
+                                staticClass: "btn btn-secondary active",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.getPartidasUrl(
+                                      _vm.partidas.path + "?page=1"
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _c("input", {
+                                  attrs: {
+                                    type: "radio",
+                                    name: "options",
+                                    id: "option1",
+                                    autocomplete: "off",
+                                    checked: ""
+                                  }
+                                }),
+                                _vm._v(" 1\n                            ")
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _vm.partidas.last_page > 1
+                              ? _c(
+                                  "label",
+                                  {
+                                    staticClass: "btn btn-secondary",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.getPartidasUrl(
+                                          _vm.partidas.path + "?page=2"
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("input", {
+                                      attrs: {
+                                        type: "radio",
+                                        name: "options",
+                                        id: "option2",
+                                        autocomplete: "off"
+                                      }
+                                    }),
+                                    _vm._v(" 2\n                            ")
+                                  ]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.partidas.last_page > 8
+                              ? _c(
+                                  "label",
+                                  { staticClass: "btn btn-secondary" },
+                                  [
+                                    _c("input", {
+                                      attrs: {
+                                        type: "radio",
+                                        name: "options",
+                                        id: "option3",
+                                        autocomplete: "off"
+                                      }
+                                    }),
+                                    _vm._v(" ...\n                            ")
+                                  ]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.partidas.last_page - 3 > 8
+                              ? _c(
+                                  "label",
+                                  {
+                                    staticClass: "btn btn-secondary",
+                                    on: {
+                                      click: function($event) {
+                                        _vm.getPartidasUrl(
+                                          _vm.partidas.path +
+                                            "?page=" +
+                                            (_vm.partidas.last_page - 1)
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("input", {
+                                      attrs: {
+                                        type: "radio",
+                                        name: "options",
+                                        id: "option1",
+                                        autocomplete: "off",
+                                        checked: ""
+                                      }
+                                    }),
+                                    _vm._v(
+                                      " " +
+                                        _vm._s(_vm.partidas.last_page - 1) +
+                                        "\n                            "
+                                    )
+                                  ]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.partidas.last_page - 3 > 8
+                              ? _c(
+                                  "label",
+                                  {
+                                    staticClass: "btn btn-secondary",
+                                    on: {
+                                      click: function($event) {
+                                        _vm.getPartidasUrl(
+                                          _vm.partidas.path +
+                                            "?page=" +
+                                            _vm.partidas.last_page
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("input", {
+                                      attrs: {
+                                        type: "radio",
+                                        name: "options",
+                                        id: "option1",
+                                        autocomplete: "off",
+                                        checked: ""
+                                      }
+                                    }),
+                                    _vm._v(
+                                      " " +
+                                        _vm._s(_vm.partidas.last_page) +
+                                        "\n                            "
+                                    )
+                                  ]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.partidas.current_page < _vm.partidas.last_page
+                              ? _c(
+                                  "label",
+                                  {
+                                    staticClass: "btn btn-secondary",
+                                    on: {
+                                      click: function($event) {
+                                        _vm.getPartidasUrl(
+                                          _vm.partidas.path +
+                                            "?page=" +
+                                            (_vm.partidas.current_page + 1)
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("input", {
+                                      attrs: {
+                                        type: "radio",
+                                        name: "options",
+                                        id: "option1",
+                                        autocomplete: "off",
+                                        checked: ""
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("i", { staticClass: "fa fa-forward" })
+                                  ]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.partidas.current_page < _vm.partidas.last_page
+                              ? _c(
+                                  "label",
+                                  {
+                                    staticClass: "btn btn-secondary",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.getPartidasUrl(
+                                          _vm.partidas.last_page_url
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("input", {
+                                      attrs: {
+                                        type: "radio",
+                                        name: "options",
+                                        id: "option1",
+                                        autocomplete: "off",
+                                        checked: ""
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("i", {
+                                      staticClass: "fa fa-fast-forward"
+                                    })
+                                  ]
+                                )
+                              : _vm._e()
+                          ]
+                        )
+                      ])
+                    ])
+                  : _vm._e()
+              ])
+            : _vm._e()
+        ])
+      ]),
+      _vm._v(" "),
+      _vm.novaPartidaModal
+        ? _c("nova-partida-modal", {
+            on: { closeNovaPartidaModal: _vm.closeNovaPartidaModal }
+          })
+        : _vm._e()
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -78077,6 +78139,51 @@ var staticRenderFns = [
     ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/pages/Partidas/NovaPartidaModal.vue?vue&type=template&id=26b0cae2&":
+/*!****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/pages/Partidas/NovaPartidaModal.vue?vue&type=template&id=26b0cae2& ***!
+  \****************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("transition", { attrs: { name: "novaPartidaModal" } }, [
+    _c("div", { staticClass: "modal-mask" }, [
+      _c("div", { staticClass: "modal-wrapper" }, [
+        _c("div", { staticClass: "modal-container" }, [
+          _c("div", { staticClass: "modal-header" }),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-body" }),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-footer" }, [
+            _c("button", {
+              staticClass: "btn btn-sm btn-success",
+              on: {
+                click: function($event) {
+                  return _vm.$emit("closeNovaPartidaModal")
+                }
+              }
+            })
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -94590,6 +94697,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/admin/pages/Partidas/NovaPartidaModal.vue":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/admin/pages/Partidas/NovaPartidaModal.vue ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _NovaPartidaModal_vue_vue_type_template_id_26b0cae2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NovaPartidaModal.vue?vue&type=template&id=26b0cae2& */ "./resources/js/components/admin/pages/Partidas/NovaPartidaModal.vue?vue&type=template&id=26b0cae2&");
+/* harmony import */ var _NovaPartidaModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NovaPartidaModal.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/pages/Partidas/NovaPartidaModal.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _NovaPartidaModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _NovaPartidaModal_vue_vue_type_template_id_26b0cae2___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _NovaPartidaModal_vue_vue_type_template_id_26b0cae2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/admin/pages/Partidas/NovaPartidaModal.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/pages/Partidas/NovaPartidaModal.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/components/admin/pages/Partidas/NovaPartidaModal.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NovaPartidaModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./NovaPartidaModal.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/pages/Partidas/NovaPartidaModal.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NovaPartidaModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/pages/Partidas/NovaPartidaModal.vue?vue&type=template&id=26b0cae2&":
+/*!**********************************************************************************************************!*\
+  !*** ./resources/js/components/admin/pages/Partidas/NovaPartidaModal.vue?vue&type=template&id=26b0cae2& ***!
+  \**********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NovaPartidaModal_vue_vue_type_template_id_26b0cae2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./NovaPartidaModal.vue?vue&type=template&id=26b0cae2& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/pages/Partidas/NovaPartidaModal.vue?vue&type=template&id=26b0cae2&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NovaPartidaModal_vue_vue_type_template_id_26b0cae2___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NovaPartidaModal_vue_vue_type_template_id_26b0cae2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/admin/pages/Partidas/Partidas.vue":
 /*!*******************************************************************!*\
   !*** ./resources/js/components/admin/pages/Partidas/Partidas.vue ***!
@@ -95163,8 +95339,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\m101008\Documents\Projetos\Pessoais\numsports\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\m101008\Documents\Projetos\Pessoais\numsports\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\NewProgramas\Web\www\numsports\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\NewProgramas\Web\www\numsports\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

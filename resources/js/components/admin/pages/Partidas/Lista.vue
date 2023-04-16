@@ -17,7 +17,7 @@
                         <v-select :options="temporadas" v-model="temporada" label="temporada" code="id" @input="getPartidas"></v-select>
                     </div>
                     <div class="col-md-2" style="text-align: right; padding-top: 30px">
-                        <a v-if="partidas.data" href="javascript:void(0)" class="btn btn-sm btn-primary" v-on:click="openCadastro">
+                        <a v-if="partidas.data" href="javascript:void(0)" class="btn btn-sm btn-primary" @click="showNovaPartidaModal">
                             <i class="fa fa-plus"></i>
                             Nova
                         </a>
@@ -147,13 +147,19 @@
                 </div>
             </div>
         </section>
+
+        <nova-partida-modal 
+            v-if="novaPartidaModal"
+            @closeNovaPartidaModal="closeNovaPartidaModal"
+        ></nova-partida-modal>
     </div>
 </template>
 
 <script>
-    import vSelect from 'vue-select'
-    import 'vue-select/dist/vue-select.css'
-    import moment from 'moment'
+    import vSelect from 'vue-select';
+    import 'vue-select/dist/vue-select.css';
+    import moment from 'moment';
+    import NovaPartidaModal from './NovaPartidaModal.vue';
     
     export default {
         props: [
@@ -162,7 +168,8 @@
 
         components: {
             vSelect,
-            moment
+            moment,
+            'nova-partida-modal': NovaPartidaModal
 		},
         
         data() {
@@ -181,11 +188,20 @@
                     placarVisitante: null,
                     visitante: null
                 },
-                times: []
+                times: [],
+                novaPartidaModal: false
             }
         },
         
         methods: {
+            showNovaPartidaModal: function() {
+                this.novaPartidaModal = true;
+            },
+
+            closeNovaPartidaModal: function() {
+                this.novaPartidaModal = false;
+            },
+
             getTemporadas: function() {
                 if (this.campeonato != null) {
                     axios.get('/api/v1/campeonato/temporadas/' + this.campeonato.id).then(response => {

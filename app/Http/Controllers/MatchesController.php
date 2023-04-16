@@ -13,6 +13,7 @@ use App\Models\TotalPontos;
 use App\Models\Posicao;
 use Illuminate\Support\Facades\DB;
 use Exception;
+use Carbon\Carbon;
 
 class MatchesController extends Controller
 {
@@ -45,13 +46,18 @@ class MatchesController extends Controller
         set_time_limit(0);
         $campeonato = $this->campeonato->getCampeonato($idTemporada);
         $eventos = $this->updateService->getDataFutebolBrasileiroMasculino($campeonato);
-        return response()->json($eventos);
+        $now = Carbon::now();
 
         foreach ($eventos as $evento) {
-            $mandante = $this->time->getTime($evento['mandante']);
-            $visitante = $this->time->getTime($evento['visitante']);
+            $actualYear = Carbon::createFromFormat('Y-m-d H:i:s', $now)->format('Y');
+            $eventYear = Carbon::createFromFormat('Y-m-d H:i:s', $evento['data'])->format('Y');
+
+            if ($actualYear == $eventYear) {
+                $mandante = $this->time->getTime($evento['mandante']);
+                $visitante = $this->time->getTime($evento['visitante']);
             
-            $this->partida->setPartida($evento['data'], $mandante->id, $visitante->id, $evento['placar'][0], $evento['placar'][1], $campeonato->id);
+                $this->partida->setPartida($evento['data'], $mandante->id, $visitante->id, $evento['placar'][0], $evento['placar'][1], $campeonato->id);
+            }
         }
 
         $this->totalizarDados($campeonato->id);
@@ -152,46 +158,46 @@ class MatchesController extends Controller
         ]);
     }
 
-    public function setPosicoesDinamicas($idTemporada)
-    {
-        $this->posicao->delete();
+    // public function setPosicoesDinamicas($idTemporada)
+    // {
+    //     $this->posicao->delete();
 
-        $maxPartida = $this->totalPontos->getMaxPartida($idTemporada);
-        $posicoes = $this->posicaoDinamica->getPosicaoRodada($idTemporada, ($maxPartida + 1));
-        $countPosicoes = count($posicoes);
+    //     $maxPartida = $this->totalPontos->getMaxPartida($idTemporada);
+    //     $posicoes = $this->posicaoDinamica->getPosicaoRodada($idTemporada, ($maxPartida + 1));
+    //     $countPosicoes = count($posicoes);
 
-        $grafico = array();
-        $times = array();
-        foreach ($posicoes as $posicao) {
-            $times[] = ['id' => $posicao->idTime, 'nome' => $posicao->nomeTime];
-        }
+    //     $grafico = array();
+    //     $times = array();
+    //     foreach ($posicoes as $posicao) {
+    //         $times[] = ['id' => $posicao->idTime, 'nome' => $posicao->nomeTime];
+    //     }
 
-        $grafico[] = $times;
-        $linhas = array();
-        for ($i = 2; $i <= ($maxPartida + 1); $i++) {
-            $nomesTimes = array();
-            $posicaoDin = $this->posicaoDinamica->getPosicaoRodada($idTemporada, $i);
-            foreach ($posicaoDin as $posicaoD) {
-                $nomesTimes[] = $posicaoD->nomeTime;
-            }
+    //     $grafico[] = $times;
+    //     $linhas = array();
+    //     for ($i = 2; $i <= ($maxPartida + 1); $i++) {
+    //         $nomesTimes = array();
+    //         $posicaoDin = $this->posicaoDinamica->getPosicaoRodada($idTemporada, $i);
+    //         foreach ($posicaoDin as $posicaoD) {
+    //             $nomesTimes[] = $posicaoD->nomeTime;
+    //         }
             
-            $linha = [($i-1)];
-            foreach ($times as $time) {
-                $linha[] = -((array_search($time['nome'], $nomesTimes)) + 1);
-            }
-            $linhas[] = $linha;
-        }
+    //         $linha = [($i-1)];
+    //         foreach ($times as $time) {
+    //             $linha[] = -((array_search($time['nome'], $nomesTimes)) + 1);
+    //         }
+    //         $linhas[] = $linha;
+    //     }
 
-        $grafico[] = $linhas;
-        $grafico[] = ($countPosicoes * 2) - 2;
-        Log::info(json_encode($grafico));
+    //     $grafico[] = $linhas;
+    //     $grafico[] = ($countPosicoes * 2) - 2;
+    //     Log::info(json_encode($grafico));
 
-        // $posicao = new Posicao;
-        // $posicao->idTemporada = $idTemporada;
-        // $posicao->idTime = $idTime;
-        // $posicao->nomeTime = $nomeTime;
-        // $posicao->save();
-    }
+    //     // $posicao = new Posicao;
+    //     // $posicao->idTemporada = $idTemporada;
+    //     // $posicao->idTime = $idTime;
+    //     // $posicao->nomeTime = $nomeTime;
+    //     // $posicao->save();
+    // }
 
     public function getPartidas(Request $request, $idTemporada)
     {
